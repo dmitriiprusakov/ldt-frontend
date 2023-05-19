@@ -7,7 +7,7 @@ export default function Home() {
 	return (
 		<main className={styles.main}>
 			<div className={styles.center}>
-				EventLoop?
+				<h1>EventLoop?</h1>
 			</div>
 		</main>
 	)
