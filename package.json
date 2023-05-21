@@ -6,26 +6,38 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "download-openrpc-specs": "ts-node --esm libs/download-openrpc-specs.ts",
+    "generate-openrpc-client": "open-rpc-generator generate -t client -l typescript -n testTs -d ./openrpc-specs/passport-openrpc.json -o ./generated",
+    "generate-openrpc-clients": "open-rpc-generator generate -c open-rpc-generator-config.json"
   },
   "dependencies": {
     "autoprefixer": "10.4.14",
-    "next": "13.4.2",
+    "axios": "^1.4.0",
+    "clsx": "^1.2.1",
+    "next": "13.4.3",
     "nprogress": "^0.2.0",
     "postcss": "8.4.23",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "swr": "^2.1.5"
   },
   "devDependencies": {
-    "@types/node": "20.1.7",
+    "@open-rpc/generator": "^1.22.3",
+    "@types/dotenv-flow": "^3.2.0",
+    "@types/download": "^8.0.2",
+    "@types/node": "20.2.1",
     "@types/nprogress": "^0.2.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
+    "dotenv-flow": "^3.2.0",
+    "download": "^8.0.0",
     "eslint": "8.40.0",
-    "eslint-config-next": "13.4.2",
+    "eslint-config-next": "13.4.3",
     "eslint-plugin-import": "^2.27.5",
+    "ts-node": "^10.9.1",
     "typescript": "5.0.4"
   }
 }

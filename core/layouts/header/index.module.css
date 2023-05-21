@@ -1,0 +1,15 @@
+.header {
+    width: 100%;
+    height: var(--header-height);
+    background: var(--header-bg);
+}
+
+.content {
+    height: 100%;
+    margin: 0 auto;
+    max-width: var(--max-width);
+    padding: 1rem var(--sides-padding);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
