@@ -1,0 +1,35 @@
+.content {
+    width: 100%;
+    margin: 0 auto;
+    max-width: var(--max-width);
+    padding: 6rem var(--sides-padding);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text {
+    margin-right: 1rem;
+}
+
+.text h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.links {
+    display: flex;
+}
+
+.link {
+    padding: 1rem 3rem;
+    border: 1px solid black;
+    border-radius: var(--border-radius);
+    margin-right: 1rem;
+}
+
+.link:last-child {
+    margin-right: 0;
+}

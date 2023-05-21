@@ -1,0 +1,32 @@
+import Image from "next/image";
+import Link from "next/link";
+import React, { FC } from "react";
+
+import nextSvg from "public/next.svg";
+
+import css from "./index.module.css";
+
+const Hero: FC = () => {
+	return (
+		<section >
+			<div className={css.content}>
+				<div className={css.text}>
+					<h1>
+						Провести мероприятие в Москве легко
+					</h1>
+					<div className={css.links}>
+						<Link href="/profile" className={css.link}>
+							Создать мероприятие
+						</Link>
+						<Link href="/profile" className={css.link}>
+							Разместить услуги
+						</Link>
+					</div>
+				</div>
+				<Image src={nextSvg} alt="image" />
+			</div>
+		</section>
+	);
+};
+
+export default Hero;

@@ -1,6 +1,7 @@
 import { Footer, Header, Main } from "core/layouts";
+import { Hero } from "features/home";
 
-import css from "./index.module.css";
+// import css from "./index.module.css";
 
 async function getData() {
 	const res = await fetch(
@@ -34,7 +35,7 @@ export default function Page() {
 				index
 			</Header>
 			<Main >
-				<h1>EventLoop index</h1>
+				<Hero />
 			</Main>
 			<Footer>
 				index

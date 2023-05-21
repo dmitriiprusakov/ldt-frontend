@@ -12,6 +12,7 @@
     "generate-openrpc-clients": "open-rpc-generator generate -c open-rpc-generator-config.json"
   },
   "dependencies": {
+    "antd": "^5.5.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "clsx": "^1.2.1",
@@ -19,8 +20,7 @@
     "nprogress": "^0.2.0",
     "postcss": "8.4.23",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "swr": "^2.1.5"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@open-rpc/generator": "^1.22.3",
