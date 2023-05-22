@@ -1,5 +1,7 @@
+import { AuthProvider } from "core/auth";
 import Link from "next/link";
 import React, { FC, PropsWithChildren } from "react";
+import { Profile } from "./components";
 
 import css from "./index.module.css";
 
@@ -19,6 +21,10 @@ const Header: FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
 				</ul>
 
 				{children}
+
+				<AuthProvider>
+					<Profile />
+				</AuthProvider>
 			</nav>
 		</header>
 	);

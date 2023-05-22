@@ -1,17 +1,18 @@
 import { User } from "core/types";
-import NextAuth from "next-auth";
+import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+const NextAuthHandler = NextAuth({
+	secret: process.env.NEXTAUTH_SECRET,
 	providers: [
 		CredentialsProvider({
-			name: "Credentials",
+			name: "credentials",
 			credentials: {
 				email: { label: "E-mail", type: "text" },
 				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials) {
-				const loginResponse = await fetch("/api/login", {
+				const loginResponse = await fetch("http://localhost:3000/api/signin", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -26,7 +27,7 @@ export const authOptions = {
 
 				if (!token) return null;
 
-				const meResponse = await fetch("/api/me", {
+				const meResponse = await fetch("http://localhost:3000/api/me", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -36,10 +37,10 @@ export const authOptions = {
 
 				const user: User = await meResponse.json();
 
-				if (user) return user;
-				else return null;
+				return user || null;
 			},
 		}),
 	],
-};
-export default NextAuth(authOptions);
+});
+
+export { NextAuthHandler as GET, NextAuthHandler as POST };
