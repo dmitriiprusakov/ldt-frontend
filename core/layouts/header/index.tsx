@@ -6,12 +6,20 @@ import css from "./index.module.css";
 const Header: FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
 	return (
 		<header className={css.header}>
-			<div className={css.content}>
+			<nav className={css.content}>
 				<Link href="/">
-					<h1>Logo</h1>
+					Logo
 				</Link>
+				<ul className={css.links}>
+					<li>
+						<Link href="/search">
+							Услуги
+						</Link>
+					</li>
+				</ul>
+
 				{children}
-			</div>
+			</nav>
 		</header>
 	);
 };

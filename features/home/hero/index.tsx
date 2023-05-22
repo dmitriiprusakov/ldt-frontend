@@ -5,6 +5,7 @@ import React, { FC } from "react";
 import nextSvg from "public/next.svg";
 
 import css from "./index.module.css";
+import clsx from "clsx";
 
 const Hero: FC = () => {
 	return (
@@ -15,10 +16,16 @@ const Hero: FC = () => {
 						Провести мероприятие в Москве легко
 					</h1>
 					<div className={css.links}>
-						<Link href="/profile" className={css.link}>
+						<Link
+							href="/search"
+							className={clsx(css.link, css.primary)}
+						>
 							Создать мероприятие
 						</Link>
-						<Link href="/profile" className={css.link}>
+						<Link
+							href="/profile"
+							className={css.link}
+						>
 							Разместить услуги
 						</Link>
 					</div>

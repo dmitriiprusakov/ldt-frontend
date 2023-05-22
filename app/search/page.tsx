@@ -2,16 +2,18 @@
 // import styles from './page.module.css'
 
 import { Footer, Header, Main } from "core/layouts";
+import { Hero, Searcher } from "features/search";
 
-export default function ProfilePage() {
+export default function SeacrhPage() {
 	return (
 		<>
 			<Header />
 			<Main>
-				<h1>Profile?</h1>
+				<Hero />
+				<Searcher />
 			</Main>
 			<Footer>
-				content profile
+				content Search
 			</Footer>
 		</>
 	);
