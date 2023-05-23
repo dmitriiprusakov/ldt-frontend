@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const baseURL = `${process.env.NEXT_PUBLIC_URL || ""}`;
+console.warn("=====baseURL======", baseURL);
 const axiosInst = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_VERCEL_URL || "",
+	baseURL: baseURL,
 	headers: {
 		"Content-Type": "application/json",
 	},
