@@ -7,30 +7,36 @@ type MeRequestBody = {
 }
 
 export async function POST(request: NextRequest) {
-	const body: MeRequestBody = await request.json();
+	try {
+		const body: MeRequestBody = await request.json();
 
-	console.log("me body=", body);
+		console.log("me body=", body);
 
-	const user = await fetch(
-		"https://passport.lct23.dev.40ants.com",
-		{
-			method: "POST",
-			headers: {
-				"Accept": "application/json",
-				"Content-Type": "application/json",
-				"Authorization": body.token,
-			},
-			body: JSON.stringify({
-				id: 0,
-				jsonrpc: "2.0",
-				method: "my_profile",
-			}),
-		}
-	);
+		const user = await fetch(
+			"https://passport.lct23.dev.40ants.com",
+			{
+				method: "POST",
+				headers: {
+					"Accept": "application/json",
+					"Content-Type": "application/json",
+					"Authorization": body.token,
+				},
+				body: JSON.stringify({
+					id: 0,
+					jsonrpc: "2.0",
+					method: "my_profile",
+				}),
+			}
+		);
 
-	const data: JsonRpcBody<User> = await user.json();
+		const data: JsonRpcBody<User> = await user.json();
 
-	if (!data || !data.result || data.error) return NextResponse.json(null);
+		if (!data || !data.result || data.error) return NextResponse.json(null);
 
-	return NextResponse.json(data.result);
+		return NextResponse.json(data.result);
+	} catch (error) {
+		console.log("me error=", error);
+
+		return NextResponse.json(null);
+	}
 }

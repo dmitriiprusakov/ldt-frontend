@@ -31,7 +31,7 @@ const NextAuthHandler = NextAuth({
 
 					return user || null;
 				} catch (error) {
-					console.log(error);
+					console.log("auth error=", error);
 
 					return null;
 				}
