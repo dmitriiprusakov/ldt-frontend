@@ -31,6 +31,6 @@ export async function GET(request: Request) {
 	} catch (error) {
 		console.log("search error=", error);
 
-		return NextResponse.json(null);
+		return NextResponse.json(error);
 	}
 }
