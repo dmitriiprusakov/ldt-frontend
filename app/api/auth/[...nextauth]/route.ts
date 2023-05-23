@@ -1,3 +1,4 @@
+import { axiosInst } from "core/axios";
 import { User } from "core/types";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -12,32 +13,28 @@ const NextAuthHandler = NextAuth({
 				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials) {
-				const loginResponse = await fetch("http://localhost:3000/api/signin", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						email: credentials?.email,
-						password: credentials?.password,
-					}),
-				});
+				try {
+					const { data: token } = await axiosInst.post<string>(
+						"/api/signin",
+						{
+							email: credentials?.email,
+							password: credentials?.password,
+						}
+					);
 
-				const token: string = await loginResponse.json();
+					if (!token) return null;
 
-				if (!token) return null;
+					const { data: user } = await axiosInst.post<User>(
+						"/api/me",
+						{ token }
+					);
 
-				const meResponse = await fetch("http://localhost:3000/api/me", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ token }),
-				});
+					return user || null;
+				} catch (error) {
+					console.log(error);
 
-				const user: User = await meResponse.json();
-
-				return user || null;
+					return null;
+				}
 			},
 		}),
 	],

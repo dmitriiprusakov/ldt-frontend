@@ -10,7 +10,7 @@ type SignInRequestBody = {
 export async function POST(request: NextRequest) {
 	const body: SignInRequestBody = await request.json();
 
-	console.log("body=", body);
+	console.log("signin body=", body);
 
 	const user = await fetch(
 		"https://passport.lct23.dev.40ants.com",
