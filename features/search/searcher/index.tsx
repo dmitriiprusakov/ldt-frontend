@@ -46,7 +46,7 @@ const Searcher: FC = () => {
 		);
 
 		console.log(data);
-		setSearchedItems(data.items);
+		setSearchedItems(data?.items || []);
 	};
 
 	return (
