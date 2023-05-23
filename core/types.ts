@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export type JsonRpcBody<T> = {
 	id: number,
 	jsonrpc: string,
@@ -19,4 +21,25 @@ export type User = {
 	admin: [],
 	vendor_id: [],
 	position: []
+}
+
+export type SearchItem = {
+	id: number,
+	title: string,
+	description: string,
+	address: string,
+	phone: string,
+	photo: string,
+	created_at: string,
+	updated_at: string,
+	main: any[],
+	rules: any[],
+	equipment: any[],
+}
+
+export type SearchResult = {
+	next_page_key: number,
+	total: number,
+	props: string[],
+	items: SearchItem[]
 }

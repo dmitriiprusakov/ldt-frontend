@@ -18,7 +18,15 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {}
+    :root {
+        --color-primary: #ffffff;
+
+        --header-bg: #0f0f0f;
+        --footer-bg: #0f0f0f;
+
+        --primary-bg: #3d3d3d;
+        --secondary-bg: #DADADA;
+    }
 }
 
 * {

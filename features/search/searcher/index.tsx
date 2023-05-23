@@ -1,29 +1,53 @@
 "use client";
 
-import { Button, Form, Input, Select } from "antd";
-import React, { FC, useEffect } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { Button, Card, Form, Input, Select } from "antd";
+import React, { FC, useEffect, useState } from "react";
+
+import { fetcher } from "core/fetcher";
+import { SearchItem, SearchResult } from "core/types";
 
 import css from "./index.module.css";
+
+type FormValues = {
+	search?: string,
+	type?: string,
+	area?: string,
+	capacity?: string,
+}
 
 const { Option } = Select;
 
 const Searcher: FC = () => {
-
-	const onFinish = (values: any) => {
-		console.log(values);
-	};
+	const [searchedItems, setSearchedItems] = useState<SearchItem[]>([]);
 
 	useEffect(() => {
-		async function fetchData() {
-			const res = await fetch("/api/search");
-
-			const product = await res.json();
-
-			console.log(product);
-		}
-
-		void fetchData();
+		void fetchData({});
 	}, []);
+
+	const onFinish = (values: FormValues) => {
+		console.log("FormValues=", values);
+		void fetchData(values);
+	};
+
+	const fetchData = async ({ search, type, area, capacity }: FormValues) => {
+
+		const { data } = await fetcher.get<SearchResult>("/api/search",
+			{
+				params: {
+					page: 0,
+					size: 10,
+					search,
+					type,
+					area,
+					capacity,
+				},
+			}
+		);
+
+		console.log(data);
+		setSearchedItems(data.items);
+	};
 
 	return (
 		<section className={css.searcher}>
@@ -84,7 +108,25 @@ const Searcher: FC = () => {
 					</Form>
 				</div>
 				<div className={css.items}>
-					data
+					{searchedItems.map(({ id, title, description, photo }) => (
+						<Card
+							key={id}
+							className={css.card}
+							hoverable
+							cover={
+								<img
+									loading="lazy"
+									alt="example"
+									src={photo}
+								/>
+							}
+						>
+							<Card.Meta
+								title={title}
+								description={description}
+							/>
+						</Card>
+					))}
 				</div>
 			</div>
 		</section>

@@ -1,10 +1,17 @@
-import { axiosInst } from "core/axios";
+import { fetcher } from "core/fetcher";
 import { User } from "core/types";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const NextAuthHandler = NextAuth({
 	secret: process.env.NEXTAUTH_SECRET,
+	pages: {
+		// signIn: "/auth/signin",
+		// signOut: '/auth/signout',
+		// error: '/auth/error', // Error code passed in query string as ?error=
+		// verifyRequest: '/auth/verify-request', // (used for check email message)
+		// newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+	},
 	providers: [
 		CredentialsProvider({
 			name: "credentials",
@@ -14,7 +21,7 @@ const NextAuthHandler = NextAuth({
 			},
 			async authorize(credentials) {
 				try {
-					const { data: token } = await axiosInst.post<string>(
+					const { data: token } = await fetcher.post<string>(
 						"/api/signin",
 						{
 							email: credentials?.email,
@@ -24,7 +31,7 @@ const NextAuthHandler = NextAuth({
 
 					if (!token) return null;
 
-					const { data: user } = await axiosInst.post<User>(
+					const { data: user } = await fetcher.post<User>(
 						"/api/me",
 						{ token }
 					);
