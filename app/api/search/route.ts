@@ -25,7 +25,7 @@ export async function GET(request: Request) {
 
 		console.log("datar=", data);
 
-		if (!data || !data.result || data.error) return NextResponse.json(null);
+		if (!data || !data.result || data.error) return NextResponse.json(data.error);
 
 		return NextResponse.json(data.result);
 	} catch (error) {
