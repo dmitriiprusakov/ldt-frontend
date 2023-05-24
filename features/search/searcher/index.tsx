@@ -1,10 +1,10 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { Button, Card, Form, Input, Select } from "antd";
+import { Button, Card, Form, Input, Select, Slider, Switch } from "antd";
 import React, { FC, useEffect, useState } from "react";
 
-import { eventsFetcher } from "core/fetcher";
+import { eventsFetcher } from "core/fetchers";
 import { JsonRpcBody, SearchItem, SearchResult } from "core/types";
 
 import css from "./index.module.css";
@@ -14,6 +14,8 @@ type FormValues = {
 	type?: string,
 	area?: string,
 	capacity?: string,
+	chairs?: boolean,
+	tables?: boolean,
 }
 
 const { Option } = Select;
@@ -30,18 +32,26 @@ const Searcher: FC = () => {
 		void fetchData(values);
 	};
 
-	const fetchData = async ({ search }: FormValues) => {
+	const fetchData = async ({ search, capacity, area, chairs, tables }: FormValues) => {
 		const { data: seacrhData } = await eventsFetcher.post<JsonRpcBody<SearchResult>>(
 			"/",
 			{
 				method: "search_places",
-				query: search,
+				query: search || undefined,
 				limit: 10,
+				props: {
+					"вместимость": capacity,
+					"площадь": area,
+					"стулья": chairs,
+					"столы": tables,
+				},
 			}
 		);
 
+		if (seacrhData.error || !seacrhData.result) return setSearchedItems([]);
+
 		console.log("seacrhData=", seacrhData);
-		setSearchedItems(seacrhData.result?.items || []);
+		setSearchedItems(seacrhData.result.items);
 	};
 
 	return (
@@ -81,23 +91,39 @@ const Searcher: FC = () => {
 							</Form.Item>
 							<Form.Item
 								name="area"
-								label="Метраж"
+								label="Площадь"
 							>
-								<Select
-									allowClear
-								>
-									<Option value="male">male</Option>
-								</Select>
+								<Slider
+									range={{ draggableTrack: true }}
+									marks={{
+										0: "0",
+										10: "20",
+										25: "40",
+										50: "60",
+										100: "100",
+									}}
+								/>
 							</Form.Item>
 							<Form.Item
 								name="capacity"
 								label="Вместимость"
 							>
-								<Select
-									allowClear
-								>
-									<Option value="male">male</Option>
-								</Select>
+								<Slider
+									range={{ draggableTrack: true }}
+									marks={{
+										0: "0",
+										10: "20",
+										25: "40",
+										50: "60",
+										100: "100",
+									}}
+								/>
+							</Form.Item>
+							<Form.Item name="chairs" label="Стулья" valuePropName="checked">
+								<Switch />
+							</Form.Item>
+							<Form.Item name="tables" label="Столы" valuePropName="checked">
+								<Switch />
 							</Form.Item>
 						</div>
 					</Form>

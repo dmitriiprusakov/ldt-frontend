@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { eventsFetcher } from "core/fetcher";
+import { eventsFetcher } from "core/fetchers";
 import { JsonRpcBody } from "core/types";
 import { NextResponse } from "next/server";
 

@@ -1,4 +1,4 @@
-import { passportFetcher } from "core/fetcher";
+import { passportFetcher } from "core/fetchers";
 import { JsonRpcBody, User } from "core/types";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";

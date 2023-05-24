@@ -18,13 +18,6 @@ const transformResponse = (data: string) => {
 	return { result, error };
 };
 
-const fetcher = axios.create({
-	baseURL: `${process.env.NEXT_PUBLIC_URL || ""}`,
-	headers: {
-		"Content-Type": "application/json",
-	},
-});
-
 const passportFetcher = axios.create({
 	baseURL: "https://passport.lct23.dev.40ants.com",
 	headers: {
@@ -43,4 +36,4 @@ const eventsFetcher = axios.create({
 	transformResponse: transformResponse,
 });
 
-export { fetcher, passportFetcher, eventsFetcher };
+export { passportFetcher, eventsFetcher };

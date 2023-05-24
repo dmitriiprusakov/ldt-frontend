@@ -1,11 +1,13 @@
 import { Footer, Header, Main } from "core/layouts";
+import { Hero, Builder } from "features/new-service";
 
-export default function ProfilePage() {
+export default function NewServicePage() {
 	return (
 		<>
 			<Header />
 			<Main>
-				<h1>Profile?</h1>
+				<Hero />
+				<Builder />
 			</Main>
 			<Footer>
 				content profile

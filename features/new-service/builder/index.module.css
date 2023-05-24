@@ -1,0 +1,14 @@
+.content {
+    width: 100%;
+    margin: 0 auto;
+    max-width: var(--max-width);
+    padding: 6rem var(--sides-padding);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content form {
+    width: 100%;
+}

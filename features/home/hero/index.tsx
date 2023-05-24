@@ -23,7 +23,7 @@ const Hero: FC = () => {
 							Создать мероприятие
 						</Link>
 						<Link
-							href="/profile"
+							href="/new-service"
 							className={css.link}
 						>
 							Разместить услуги
