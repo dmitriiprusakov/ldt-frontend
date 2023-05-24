@@ -36,5 +36,3 @@ export async function GET(request: Request) {
 		return NextResponse.json(error);
 	}
 }
-
-export const dynamic = "force-dynamic";

@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export type JsonRpcBody<T> = {
-	id: number,
-	jsonrpc: string,
 	result?: T,
 	error?: {
 		code: number,

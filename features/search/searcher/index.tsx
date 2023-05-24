@@ -4,8 +4,8 @@
 import { Button, Card, Form, Input, Select } from "antd";
 import React, { FC, useEffect, useState } from "react";
 
-import { fetcher } from "core/fetcher";
-import { SearchItem, SearchResult } from "core/types";
+import { eventsFetcher } from "core/fetcher";
+import { JsonRpcBody, SearchItem, SearchResult } from "core/types";
 
 import css from "./index.module.css";
 
@@ -30,23 +30,18 @@ const Searcher: FC = () => {
 		void fetchData(values);
 	};
 
-	const fetchData = async ({ search, type, area, capacity }: FormValues) => {
-
-		const { data } = await fetcher.get<SearchResult>("/api/search",
+	const fetchData = async ({ search }: FormValues) => {
+		const { data: seacrhData } = await eventsFetcher.post<JsonRpcBody<SearchResult>>(
+			"/",
 			{
-				params: {
-					page: 0,
-					size: 10,
-					search,
-					type,
-					area,
-					capacity,
-				},
+				method: "search_places",
+				query: search,
+				limit: 10,
 			}
 		);
 
-		console.log(data);
-		setSearchedItems(data?.items || []);
+		console.log("seacrhData=", seacrhData);
+		setSearchedItems(seacrhData.result?.items || []);
 	};
 
 	return (

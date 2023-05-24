@@ -1,5 +1,5 @@
-import { fetcher } from "core/fetcher";
-import { User } from "core/types";
+import { passportFetcher } from "core/fetcher";
+import { JsonRpcBody, User } from "core/types";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -7,10 +7,6 @@ const NextAuthHandler = NextAuth({
 	secret: process.env.NEXTAUTH_SECRET,
 	pages: {
 		// signIn: "/auth/signin",
-		// signOut: '/auth/signout',
-		// error: '/auth/error', // Error code passed in query string as ?error=
-		// verifyRequest: '/auth/verify-request', // (used for check email message)
-		// newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
 	},
 	providers: [
 		CredentialsProvider({
@@ -21,23 +17,27 @@ const NextAuthHandler = NextAuth({
 			},
 			async authorize(credentials) {
 				try {
-					const { data: token } = await fetcher.post<string>(
-						"/api/signin",
+					const { data: loginData } = await passportFetcher.post<JsonRpcBody<string>>(
+						"/",
 						{
+							method: "login",
 							email: credentials?.email,
 							password: credentials?.password,
 						}
 					);
 
-					if (!token) return null;
+					if (loginData.error || !loginData.result) return null;
 
-					const { data: user } = await fetcher.post<User>(
-						"/api/me",
-						{ token }
+					const { data: profileData } = await passportFetcher.post<JsonRpcBody<User>>(
+						"/",
+						{ method: "my_profile" },
+						{ headers: { "Authorization": loginData.result } }
 					);
 
-					return user || null;
-				} catch (error) {
+					if (profileData.error || !profileData.result) return null;
+
+					return profileData.result;
+				} catch (error: unknown) {
 					console.log("auth error=", error);
 
 					return null;
