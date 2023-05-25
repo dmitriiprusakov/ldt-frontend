@@ -1,8 +1,9 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { Button, Card, Form, Input, Select, Slider, Switch } from "antd";
+import { Button, Card, DatePicker, Form, Input, Slider, Switch } from "antd";
 import React, { FC, useEffect, useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
 
 import { eventsFetcher } from "core/fetchers";
 import { JsonRpcBody, SearchItem, SearchResult } from "core/types";
@@ -16,9 +17,10 @@ type FormValues = {
 	capacity?: string,
 	chairs?: boolean,
 	tables?: boolean,
+	timeRange?: [Dayjs, Dayjs]
 }
 
-const { Option } = Select;
+const { RangePicker } = DatePicker;
 
 const Searcher: FC = () => {
 	const [searchedItems, setSearchedItems] = useState<SearchItem[]>([]);
@@ -32,13 +34,19 @@ const Searcher: FC = () => {
 		void fetchData(values);
 	};
 
-	const fetchData = async ({ search, capacity, area, chairs, tables }: FormValues) => {
+	const fetchData = async ({ search, capacity, area, chairs, tables, timeRange }: FormValues) => {
+		const from_ts = timeRange?.at(0)?.toISOString();
+		const to_ts = timeRange?.at(-1)?.toISOString();
+		console.log("from_to_ts=", { from_ts, to_ts });
+
 		const { data: seacrhData } = await eventsFetcher.post<JsonRpcBody<SearchResult>>(
 			"/",
 			{
 				method: "search_places",
-				query: search || undefined,
 				limit: 10,
+				query: search || undefined,
+				from_ts: from_ts,
+				to_ts: to_ts,
 				props: {
 					"вместимость": capacity,
 					"площадь": area,
@@ -71,6 +79,16 @@ const Searcher: FC = () => {
 								label="Поиск"
 							>
 								<Input />
+							</Form.Item>
+							<Form.Item
+								name="timeRange"
+								label="Промежуток"
+								rules={[{ type: "array" as const }]}
+
+							>
+								<RangePicker
+								// allowEmpty={[true, true]}
+								/>
 							</Form.Item>
 							<Form.Item label=" ">
 								<Button type="primary" htmlType="submit">
