@@ -41,3 +41,16 @@ export type SearchResult = {
 	props: string[],
 	items: SearchItem[]
 }
+
+export type Vendor = {
+	id: number,
+	title: string,
+	type: string,
+	created_at: string,
+	updated_at: string,
+}
+
+export type VendorResult = {
+	next_page_key: number,
+	items: Vendor[],
+}

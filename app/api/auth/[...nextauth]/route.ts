@@ -6,7 +6,22 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const NextAuthHandler = NextAuth({
 	secret: process.env.NEXTAUTH_SECRET,
 	pages: {
-		// signIn: "/auth/signin",
+		signIn: "/auth/signin",
+	},
+	session: {
+		strategy: "jwt",
+	},
+	callbacks: {
+		jwt({ token, user, account, profile, session, trigger }) {
+			// console.log("jwt=", { token, user, account, profile, session, trigger });
+			return { ...token, ...user };
+		},
+		session({ session, token, user, trigger }) {
+			// console.log("session=", { token, user, session, trigger });
+			session.user = token;
+
+			return session;
+		},
 	},
 	providers: [
 		CredentialsProvider({
@@ -26,6 +41,8 @@ const NextAuthHandler = NextAuth({
 						}
 					);
 
+					console.log("loginData=", loginData.result);
+
 					if (loginData.error || !loginData.result) return null;
 
 					const { data: profileData } = await passportFetcher.post<JsonRpcBody<User>>(
@@ -34,9 +51,14 @@ const NextAuthHandler = NextAuth({
 						{ headers: { "Authorization": loginData.result } }
 					);
 
+					console.log("profileData=", profileData);
+
 					if (profileData.error || !profileData.result) return null;
 
-					return profileData.result;
+					return {
+						...profileData.result,
+						accessToken: loginData.result,
+					};
 				} catch (error: unknown) {
 					console.log("auth error=", error);
 

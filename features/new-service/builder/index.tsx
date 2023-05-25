@@ -2,15 +2,54 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 "use client";
 
-import { Button, Form, Input, Select, Upload } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Upload } from "antd";
+
+import { eventsFetcher } from "core/fetchers";
+import { JsonRpcBody } from "core/types";
+import { getSession } from "next-auth/react";
+
 import css from "./index.module.css";
 
-import { InboxOutlined } from "@ant-design/icons";
+type FormValues = {
+	title: string,
+	description: string,
+	address: string,
+	phone: string,
+}
 
+//accessToken положить в куки чтобы попала на бэк
 export default function NewService() {
 
-	const onFinish = (values: any) => {
+	const addService = async ({ title, address, description, phone }: FormValues) => {
+		const session = await getSession();
+		console.log("session", session);
+
+		if (!session) return;
+
+		const { data: addPlaceData } = await eventsFetcher.post<JsonRpcBody<any>>(
+			"/",
+			{
+				method: "add_place",
+				title,
+				address,
+				description,
+				phone,
+			},
+			{
+				headers: {
+					"Authorization": session.user?.accessToken || "",
+				},
+			}
+		);
+		console.log(addPlaceData);
+
+		// console.log(vendorsData);
+	};
+
+	const onFinish = (values: FormValues) => {
 		console.log("Success:", values);
+		void addService(values);
 	};
 
 	const normFile = (e: any) => {
@@ -45,20 +84,26 @@ export default function NewService() {
 					</Form.Item>
 					<Form.Item
 						label="Название"
-						name="name"
+						name="title"
 						rules={[{ required: true, message: "Обязательное поле" }]}
 					>
 						<Input />
 					</Form.Item>
 
 					<Form.Item
-						label="Тип услуги"
-						name="type"
-						rules={[{ required: true, message: "Обязательное поле" }]}
+						label="Адрес"
+						name="address"
+					// rules={[{ required: true, message: "Обязательное поле" }]}
 					>
-						<Select allowClear>
-							<Select.Option value="1">1</Select.Option>
-						</Select>
+						<Input />
+					</Form.Item>
+
+					<Form.Item
+						label="Телефон"
+						name="phone"
+					// rules={[{ required: true, message: "Обязательное поле" }]}
+					>
+						<Input />
 					</Form.Item>
 
 					<Form.Item

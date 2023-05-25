@@ -80,16 +80,6 @@ const Searcher: FC = () => {
 						</div>
 						<div className={css.row}>
 							<Form.Item
-								name="type"
-								label="Тип помещения"
-							>
-								<Select
-									allowClear
-								>
-									<Option value="male">male</Option>
-								</Select>
-							</Form.Item>
-							<Form.Item
 								name="area"
 								label="Площадь"
 							>
