@@ -1,0 +1,19 @@
+.content {
+    width: 100%;
+    margin: 0 auto;
+    max-width: var(--max-width);
+    padding: 3rem var(--sides-padding);
+}
+
+.card,
+.card :global(.ant-card-meta),
+.descriptions,
+.carousel {
+    margin-bottom: 1rem;
+}
+
+.card :global(.ant-card-meta-title) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

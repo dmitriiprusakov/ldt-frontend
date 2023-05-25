@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { passportFetcher } from "core/fetchers";
 import { JsonRpcBody, User } from "core/types";
 import NextAuth from "next-auth/next";
@@ -12,13 +13,13 @@ const NextAuthHandler = NextAuth({
 		strategy: "jwt",
 	},
 	callbacks: {
-		jwt({ token, user, account, profile, session, trigger }) {
-			// console.log("jwt=", { token, user, account, profile, session, trigger });
+		jwt({ token, user, session }) {
+			console.log("jwt=", { token, session, user });
 			return { ...token, ...user };
 		},
-		session({ session, token, user, trigger }) {
-			// console.log("session=", { token, user, session, trigger });
-			session.user = token;
+		session({ session, token, user }) {
+			console.log("session=", { token, session, user });
+			session.user = token as any;
 
 			return session;
 		},

@@ -3,12 +3,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button, Card, DatePicker, Form, Input, Slider, Switch } from "antd";
 import React, { FC, useEffect, useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 
 import { eventsFetcher } from "core/fetchers";
 import { JsonRpcBody, SearchItem, SearchResult } from "core/types";
 
 import css from "./index.module.css";
+import Link from "next/link";
 
 type FormValues = {
 	search?: string,
@@ -138,23 +139,27 @@ const Searcher: FC = () => {
 				</div>
 				<div className={css.items}>
 					{searchedItems.map(({ id, title, description, photo }) => (
-						<Card
+						<Link
+							href={`/search/${id}`}
 							key={id}
-							className={css.card}
-							hoverable
-							cover={
-								<img
-									loading="lazy"
-									alt="example"
-									src={photo}
-								/>
-							}
 						>
-							<Card.Meta
-								title={title}
-								description={description}
-							/>
-						</Card>
+							<Card
+								className={css.card}
+								hoverable
+								cover={
+									<img
+										loading="lazy"
+										alt="example"
+										src={photo}
+									/>
+								}
+							>
+								<Card.Meta
+									title={title}
+									description={description}
+								/>
+							</Card>
+						</Link>
 					))}
 				</div>
 			</div>
