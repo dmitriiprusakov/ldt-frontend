@@ -92,6 +92,7 @@ export type BookRange = {
 
 export type Place = {
 	id: number,
+	vendor_id: number,
 	created_at: string,
 	updated_at: string,
 	title: string,
@@ -99,7 +100,7 @@ export type Place = {
 	address: string,
 	phone: string,
 	photo: string,
-	vendor_id: number,
+	rating: number,
 	public: boolean,
 	main: MainCharasteristic[],
 	equipment: Equipment[],
@@ -107,7 +108,7 @@ export type Place = {
 }
 
 export type PlaceResult = {
-	place: Place
+	place: Place,
 	booking: BookRange[],
 }
 
@@ -119,3 +120,19 @@ export type Checklist = {
 }
 
 export type Checklists = Record<string, Checklist>
+
+export type Comment = {
+	id: number,
+	user_id: number,
+	object_id: number,
+	created_at: string,
+	updated_at: string,
+	object_type: string,
+	text: string,
+	rating: number,
+	user: User,
+}
+
+export type CommentsResult = {
+	items: Comment[]
+}

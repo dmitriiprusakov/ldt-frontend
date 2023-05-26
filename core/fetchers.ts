@@ -36,4 +36,13 @@ const eventsFetcher = axios.create({
 	transformResponse: transformResponse,
 });
 
-export { passportFetcher, eventsFetcher };
+const ratingFetcher = axios.create({
+	baseURL: "https://rating.lct23.dev.40ants.com",
+	headers: {
+		"Content-Type": "application/json",
+	},
+	transformRequest: transformRequest,
+	transformResponse: transformResponse,
+});
+
+export { passportFetcher, eventsFetcher, ratingFetcher };

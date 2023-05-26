@@ -2,18 +2,24 @@
 "use client";
 
 import { BookOutlined, MessageOutlined, ScheduleOutlined } from "@ant-design/icons";
-import { Avatar, Badge, Calendar, Card, Carousel, ConfigProvider, Descriptions, Form, Input, List, Rate } from "antd";
-import { eventsFetcher } from "core/fetchers";
-import { JsonRpcBody, PlaceResult } from "core/types";
+import { Avatar, Badge, Button, Calendar, Card, Carousel, ConfigProvider, Descriptions, Divider, Form, Input, List, Rate } from "antd";
+import { eventsFetcher, ratingFetcher } from "core/fetchers";
+import { Comment, CommentsResult, JsonRpcBody, PlaceResult } from "core/types";
 import React, { FC, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import ruRU from "antd/locale/ru_RU";
 
 import css from "./index.module.css";
+import { getSession, useSession } from "next-auth/react";
 
 const { Item } = Descriptions;
 
-const comments = [
+type CommentFormValues = {
+	rating: number,
+	comment: string,
+}
+
+const commentsFake = [
 	{
 		user: "Пользователь",
 		description: "Прикольно 1",
@@ -37,8 +43,9 @@ type FullInfoProps = {
 }
 const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 	const [info, setInfo] = useState<PlaceResult | null>(null);
+	const [comments, setComments] = useState<Comment[]>([]);
 
-	const [value, setValue] = useState(() => dayjs("2017-01-25"));
+	const [commentForm] = Form.useForm();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -59,16 +66,59 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 		void fetchData();
 	}, [id]);
 
-	const onSelect = (newValue: Dayjs) => {
-		console.log("onSelect", { newValue });
+	const fetchComments = async (object_id: number) => {
+		const { data } = await ratingFetcher.post<JsonRpcBody<CommentsResult>>(
+			"/",
+			{
+				method: "get_comments",
+				object_id: object_id,
+				object_type: "PLACE",
+			}
+		);
 
-		setValue(newValue);
+		if (data.error || !data.result) return setComments([]);
+
+		console.log("fetchComments=", data);
+		setComments(data.result.items);
 	};
 
-	const onPanelChange = (newValue: Dayjs) => {
-		console.log("onPanelChange", { newValue });
+	useEffect(() => {
+		info?.place.id && void fetchComments(info?.place.id);
+	}, [info?.place.id]);
 
-		setValue(newValue);
+	const sendComment = async ({ rating, comment }: CommentFormValues) => {
+		const session = await getSession();
+
+		if (!session?.user) return;
+
+		const { data } = await ratingFetcher.post<JsonRpcBody<any>>(
+			"/",
+			{
+				method: "add_comment",
+				object_id: info?.place.id,
+				object_type: "PLACE",
+				rating: rating * 2,
+				comment: comment,
+			},
+			{
+				headers: {
+					"Authorization": session.user.accessToken || "",
+				},
+			}
+		);
+
+		console.log("sendComment=", data);
+
+		if (data.error || !data.result) return;
+
+		info?.place.id && await fetchComments(info?.place.id);
+
+		commentForm.resetFields();
+	};
+
+	const handleFinishComment = (values: CommentFormValues) => {
+		console.log("handleFinishComment", values);
+		void sendComment(values);
 	};
 
 	return (
@@ -93,7 +143,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 							title={
 								<>
 									{info?.place.title}
-									<Rate value={10} />
+									<Rate allowHalf value={(info?.place.rating ?? 0) / 2} disabled />
 								</>
 							}
 							description={info?.place.description}
@@ -115,7 +165,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 							layout="vertical"
 							bordered
 						>
-							{info?.place.main.map(({ id, title, attributes }) => (
+							{info?.place.main?.map(({ id, title, attributes }) => (
 								<Item key={id} label={title}>
 									{attributes.value}
 								</Item>
@@ -126,7 +176,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 							layout="vertical"
 							bordered
 						>
-							{info?.place.equipment.map(({ id, title }) => (
+							{info?.place.equipment?.map(({ id, title }) => (
 								<Item key={id} label={title}>
 									<Badge status="success" text="Есть" />
 								</Item>
@@ -152,32 +202,45 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 						/>
 					</Carousel>
 
-					<Calendar
-						mode='month'
-						value={value}
-						onSelect={onSelect}
-						onPanelChange={onPanelChange}
-					/>
+					<Divider />
 
-					<Form layout="vertical">
+					<Form form={commentForm} layout="vertical" onFinish={handleFinishComment}>
 						<Form.Item
-							label="Оставьте комментарий"
-							name="comment"
+							name="rating"
+							label="Оценка"
+							rules={[{ required: true, message: "Обязательное поле" }]}
 						>
-							<Input.TextArea showCount maxLength={300} rows={2} />
+							<Rate />
+						</Form.Item>
+						<Form.Item
+							label="Комментарий"
+							name="comment"
+							rules={[{ required: true, message: "Обязательное поле" }]}
+						>
+							<Input.TextArea
+								showCount
+								rows={2}
+								maxLength={300}
+							/>
+						</Form.Item>
+						<Form.Item>
+							<Button type="primary" htmlType="submit">
+								Отправить
+							</Button>
 						</Form.Item>
 					</Form>
 
 					<List
-						itemLayout="horizontal"
+						itemLayout="vertical"
 						dataSource={comments}
-						renderItem={(item, index) => (
+						renderItem={(item) => (
 							<List.Item>
 								<List.Item.Meta
-									avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-									title={item.user}
-									description={item.description}
+									avatar={<Avatar src={item.user.avatar_url} />}
+									title={item.user.fio}
+									description={dayjs(item.created_at).format("DD-MM-YYYY HH:mm")}
 								/>
+								<div>{item.text}</div>
 							</List.Item>
 						)}
 					/>
