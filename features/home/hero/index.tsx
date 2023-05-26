@@ -9,7 +9,7 @@ import clsx from "clsx";
 
 const Hero: FC = () => {
 	return (
-		<section >
+		<section>
 			<div className={css.content}>
 				<div className={css.text}>
 					<h1>
@@ -17,7 +17,7 @@ const Hero: FC = () => {
 					</h1>
 					<div className={css.links}>
 						<Link
-							href="/search"
+							href="/new-event"
 							className={clsx(css.link, css.primary)}
 						>
 							Создать мероприятие

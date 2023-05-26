@@ -110,3 +110,12 @@ export type PlaceResult = {
 	place: Place
 	booking: BookRange[],
 }
+
+export type Checklist = {
+	title: string
+	planning: string[],
+	recommendations: string[],
+	design: string[]
+}
+
+export type Checklists = Record<string, Checklist>
