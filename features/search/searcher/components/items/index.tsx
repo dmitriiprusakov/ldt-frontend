@@ -1,13 +1,16 @@
 import { Button, Card } from "antd";
 import { eventsFetcher } from "core/fetchers";
-import { JsonRpcBody, PlaceFilters, SearchItem, SearchResult } from "core/types";
+import { JsonRpcBody, PlaceFilters, SearchItem, SearchItemShort, SearchResult } from "core/types";
 import Link from "next/link";
 import React, { FC, MouseEvent, useEffect, useState } from "react";
 import { useAppSelector } from "store";
 
 import css from "./index.module.css";
 
-const Items: FC = () => {
+type Props = {
+	addEventCallback: (id: SearchItemShort) => void;
+}
+const Items: FC<Props> = ({ addEventCallback }: Props) => {
 	const [items, setItems] = useState<SearchItem[]>([]);
 	const currentFilters = useAppSelector((state) => state.core.filters);
 
@@ -43,15 +46,16 @@ const Items: FC = () => {
 
 	const handleChose = (
 		event: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent> | MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-		id: number
+		item: SearchItemShort
 	) => {
 		event.preventDefault();
-		console.log("handleChose=", id);
+
+		addEventCallback(item);
 	};
 
 	return (
 		<div className={css.items}>
-			{items.map(({ id, title, description, photo }) => (
+			{items.map(({ id, title, description, photo, price }) => (
 				<Link
 					href={`/search/${id}`}
 					key={id}
@@ -60,13 +64,15 @@ const Items: FC = () => {
 						className={css.card}
 						hoverable
 						actions={[
-							<Button key={"add"} onClick={(e) => handleChose(e, id)}>
+							<Button key={"add"} onClick={(e) => handleChose(e, { id, title, photo, price })}>
 								Выбрать
 							</Button>,
 							<Button key={"save"} >
 								В избранное
 							</Button>,
 						]}
+						title={title}
+						extra={<b>{`${price} ₽`}</b>}
 						cover={
 							<img
 								loading="lazy"
@@ -76,7 +82,6 @@ const Items: FC = () => {
 						}
 					>
 						<Card.Meta
-							title={title}
 							description={description}
 						/>
 					</Card>

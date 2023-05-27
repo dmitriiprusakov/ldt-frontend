@@ -53,6 +53,8 @@ export type Equipment = {
 	}
 }
 
+export type SearchItemShort = Pick<SearchItem, "id" | "title" | "photo" | "price">
+
 export type SearchItem = {
 	id: number;
 	title: string;
@@ -60,6 +62,7 @@ export type SearchItem = {
 	address: string;
 	phone: string;
 	photo: string;
+	price: number;
 	created_at: string;
 	updated_at: string;
 	main: MainCharasteristic[];

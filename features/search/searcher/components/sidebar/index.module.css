@@ -11,4 +11,9 @@
 .group {
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.item :global(.ant-card) {
+    margin: 0.5rem 0;
 }

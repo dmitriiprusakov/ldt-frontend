@@ -1,6 +1,6 @@
-import { Button, Checkbox, Divider } from "antd";
+import { Avatar, Button, Card, Checkbox, Divider } from "antd";
 import { eventsFetcher } from "core/fetchers";
-import { JsonRpcBody } from "core/types";
+import { JsonRpcBody, SearchItemShort } from "core/types";
 import dayjs from "dayjs";
 import { getSession } from "next-auth/react";
 import React, { FC } from "react";
@@ -9,7 +9,10 @@ import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
 import css from "./index.module.css";
 
-const Sidebar: FC = () => {
+type Props = {
+	event: Record<string, SearchItemShort>;
+}
+const Sidebar: FC<Props> = ({ event }: Props) => {
 	const currentChecklist = useAppSelector((state) => state.core.currentChecklist);
 
 	const createEvent = async ({ search, capacity, area, chairs, tables, timeRange }: any) => {
@@ -54,21 +57,39 @@ const Sidebar: FC = () => {
 		console.log("handleCheck checkedValues=", checkedValues);
 	};
 
+	const checklistValue = Object.keys(event);
+	console.log("checklistValue=", checklistValue, event);
+
 	return (
 		<div className={css.content}>
 			{currentChecklist && (
-				<Checkbox.Group onChange={handleCheck} className={css.checkboxGroup}>
+				<Checkbox.Group
+					className={css.checkboxGroup}
+					value={checklistValue}
+					onChange={handleCheck}
+				>
 					<Divider orientation="left">Организация</Divider>
 
 					<div className={css.group}>
-						{currentChecklist.recommendations.map(({ title, active }) => (
-							<Checkbox
-								key={title}
-								value={title}
-								disabled={!active}
-							>
-								{title} {!active && "(скоро появится)"}
-							</Checkbox>
+						{currentChecklist.recommendations.map(({ title, active, type }) => (
+							<div key={type ?? title} className={css.item}>
+								<Checkbox
+									key={type ?? title}
+									value={type}
+									disabled={!active}
+								>
+									{title} {!active && "(скоро появится)"}
+								</Checkbox>
+								{type && event[type] && (
+									<Card size="small">
+										<Card.Meta
+											avatar={<Avatar size={"large"} shape="square" src={event[type].photo} />}
+											title={event[type].title}
+											description={`${event[type].price} ₽`}
+										/>
+									</Card>
+								)}
+							</div>
 						))}
 					</div>
 

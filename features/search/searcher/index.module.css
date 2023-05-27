@@ -6,9 +6,13 @@
     display: flex;
 }
 
+.content :global(.ant-checkbox-group) {
+    width: 100%;
+}
+
 .aside {
-    min-width: 20rem;
-    max-width: 20rem;
+    min-width: 24rem;
+    max-width: 24rem;
     border-right: 1px solid gainsboro;
     margin-right: 1rem;
     display: flex;
