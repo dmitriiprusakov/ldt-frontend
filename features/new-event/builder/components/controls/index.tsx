@@ -33,8 +33,8 @@ const Controls: FC<Props> = ({
 
 	const handleFinish = ({ eventType, timeRange, budget }: Values) => {
 		console.log("handleFinish", { eventType, timeRange, budget });
-		const from_ts = timeRange?.at(0)?.format("DD-MM-YYYY");
-		const to_ts = timeRange?.at(-1)?.format("DD-MM-YYYY");
+		const from_ts = timeRange?.at(0)?.toISOString();
+		const to_ts = timeRange?.at(-1)?.toISOString();
 
 		const searchParams = new URLSearchParams();
 		eventType && searchParams.set("et", eventType);
@@ -68,7 +68,10 @@ const Controls: FC<Props> = ({
 					label="Дата проведения"
 					rules={[{ type: "array" as const, required: true, message: "Обязательное поле" }]}
 				>
-					<RangePicker className={css.rangePicker} />
+					<RangePicker
+						format={"DD.MM.YYYY"}
+						className={css.rangePicker}
+					/>
 				</Form.Item>
 				<Form.Item
 					name="budget"

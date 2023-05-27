@@ -2,7 +2,7 @@ import { Button, Card } from "antd";
 import { eventsFetcher } from "core/fetchers";
 import { JsonRpcBody, PlaceFilters, SearchItem, SearchResult } from "core/types";
 import Link from "next/link";
-import React, { FC, MouseEvent, MouseEventHandler, useEffect, useState } from "react";
+import React, { FC, MouseEvent, useEffect, useState } from "react";
 import { useAppSelector } from "store";
 
 import css from "./index.module.css";
@@ -10,10 +10,6 @@ import css from "./index.module.css";
 const Items: FC = () => {
 	const [items, setItems] = useState<SearchItem[]>([]);
 	const currentFilters = useAppSelector((state) => state.core.filters);
-
-	useEffect(() => {
-		void fetchData({});
-	}, []);
 
 	useEffect(() => {
 		currentFilters && void fetchData(currentFilters);

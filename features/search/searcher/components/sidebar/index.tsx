@@ -57,20 +57,8 @@ const Sidebar: FC = () => {
 	return (
 		<div className={css.content}>
 			{currentChecklist && (
-				<Checkbox.Group onChange={handleCheck}>
-					<div className={css.group}>
-						{currentChecklist.planning.map(({ title, active }) => (
-							<Checkbox
-								key={title}
-								value={title}
-								disabled={!active}
-							>
-								{title}
-							</Checkbox>
-						))}
-					</div>
-
-					<Divider />
+				<Checkbox.Group onChange={handleCheck} className={css.checkboxGroup}>
+					<Divider orientation="left">Организация</Divider>
 
 					<div className={css.group}>
 						{currentChecklist.recommendations.map(({ title, active }) => (
@@ -79,12 +67,12 @@ const Sidebar: FC = () => {
 								value={title}
 								disabled={!active}
 							>
-								{title}
+								{title} {!active && "(скоро появится)"}
 							</Checkbox>
 						))}
 					</div>
 
-					<Divider />
+					<Divider orientation="left">Оформление</Divider>
 
 					<div className={css.group}>
 						{currentChecklist.design.map(({ title, active }) => (

@@ -219,7 +219,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 								<List.Item.Meta
 									avatar={<Avatar src={item.user.avatar_url} />}
 									title={item.user.fio}
-									description={dayjs(item.created_at).format("DD-MM-YYYY HH:mm")}
+									description={dayjs(item.created_at).format("DD.MM.YYYY HH:mm")}
 								/>
 								<div>{item.text}</div>
 							</List.Item>

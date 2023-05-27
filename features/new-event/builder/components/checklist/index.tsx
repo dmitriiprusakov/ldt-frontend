@@ -6,6 +6,24 @@ import React, { FC } from "react";
 import { useAppSelector } from "store";
 import css from "./index.module.css";
 
+const planningChecklist = [
+	{
+		"title": "Выбрать тип мероприятия",
+		"active": true,
+		"type": "TYPE",
+	},
+	{
+		"title": "Выбрать дату и время проведения",
+		"active": true,
+		"type": "DATE",
+	},
+	{
+		"title": "Определить бюджет",
+		"active": true,
+		"type": "BUDGET",
+	},
+];
+
 type Props = {
 	currentChecklistId: string | null;
 	checklistValue: Record<string, boolean>;
@@ -20,53 +38,56 @@ const Checklist: FC<Props> = ({
 
 	return (
 		<>
-			{currentChecklistId && (
-				<Checkbox.Group
-					value={value}
-				>
-					<Divider orientation="left">Создание мероприятия</Divider>
+			<Checkbox.Group
+				value={value}
+				className={css.checkboxGroup}
+			>
+				<Divider orientation="left">Планирование</Divider>
 
-					<div className={css.group}>
-						{checklistsData[currentChecklistId].planning.map(({ title, active, type }) => (
-							<Checkbox
-								key={title}
-								value={type}
-								disabled={!active}
-							>
-								{title}
-							</Checkbox>
-						))}
-					</div>
+				<div className={css.group}>
+					{planningChecklist.map(({ title, active, type }) => (
+						<Checkbox
+							key={title}
+							value={type}
+							disabled={!active}
+						>
+							{title}
+						</Checkbox>
+					))}
+				</div>
 
-					<Divider orientation="left">Организация мероприятия</Divider>
+				{currentChecklistId && (
+					<>
+						<Divider orientation="left">Организация</Divider>
 
-					<div className={css.group}>
-						{checklistsData[currentChecklistId].recommendations.map(({ title, active }) => (
-							<Checkbox
-								key={title}
-								value={title}
-								disabled={!active}
-							>
-								{title} {!active && "(скоро появится)"}
-							</Checkbox>
-						))}
-					</div>
+						<div className={css.group}>
+							{checklistsData[currentChecklistId].recommendations.map(({ title, active }) => (
+								<Checkbox
+									key={title}
+									value={title}
+									disabled={!active}
+								>
+									{title} {!active && "(скоро появится)"}
+								</Checkbox>
+							))}
+						</div>
 
-					<Divider orientation="left">Оформление мероприятия</Divider>
+						<Divider orientation="left">Оформление</Divider>
 
-					<div className={css.group}>
-						{checklistsData[currentChecklistId].design.map(({ title, active }) => (
-							<Checkbox
-								key={title}
-								value={title}
-								disabled={!active}
-							>
-								{title}
-							</Checkbox>
-						))}
-					</div>
-				</Checkbox.Group>
-			)}
+						<div className={css.group}>
+							{checklistsData[currentChecklistId].design.map(({ title, active }) => (
+								<Checkbox
+									key={title}
+									value={title}
+									disabled={!active}
+								>
+									{title}
+								</Checkbox>
+							))}
+						</div>
+					</>
+				)}
+			</Checkbox.Group>
 		</>
 	);
 };

@@ -1,7 +1,9 @@
 import { Button, DatePicker, Form, Input, Slider, Switch } from "antd";
 import { setFilters } from "core/redux/slice";
 import { PlaceFilters } from "core/types";
-import React, { FC } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { useSearchParams } from "next/navigation";
+import React, { FC, useEffect, useMemo } from "react";
 import { useAppDispatch } from "store";
 
 import css from "./index.module.css";
@@ -10,16 +12,31 @@ const { RangePicker } = DatePicker;
 
 const Filters: FC = () => {
 	const dispatch = useAppDispatch();
+	const searchParams = useSearchParams();
+
+	useEffect(() => {
+		const filtersPresetFromUrl = {
+			timeRange: [dayjs(searchParams.get("from")), dayjs(searchParams.get("to"))] as [Dayjs, Dayjs],
+		};
+
+		dispatch(setFilters(filtersPresetFromUrl));
+	}, [dispatch, searchParams]);
 
 	const onFinish = (values: PlaceFilters) => {
 		dispatch(setFilters(values));
 	};
+
+	const fields = useMemo(() => ([{
+		name: ["timeRange"],
+		value: [dayjs(searchParams.get("from")), dayjs(searchParams.get("to"))],
+	}]), [searchParams]);
 
 	return (
 		<div className={css.filters}>
 			<Form
 				onFinish={onFinish}
 				layout="vertical"
+				fields={fields}
 			>
 				<div className={css.row}>
 					<Form.Item
@@ -35,6 +52,7 @@ const Filters: FC = () => {
 
 					>
 						<RangePicker
+							format={"DD.MM.YYYY"}
 						/>
 					</Form.Item>
 					<Form.Item label=" ">

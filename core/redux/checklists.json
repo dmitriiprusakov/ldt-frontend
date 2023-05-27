@@ -1,23 +1,6 @@
 {
 	"art-exhibition": {
 		"title": "Выставка картин",
-		"planning": [
-			{
-				"title": "Выбрать тип мероприятия",
-				"active": true,
-				"type": "TYPE"
-			},
-			{
-				"title": "Выбрать дату и время проведения",
-				"active": true,
-				"type": "DATE"
-			},
-			{
-				"title": "Определить бюджет",
-				"active": true,
-				"type": "BUDGET"
-			}
-		],
 		"recommendations": [
 			{
 				"title": "Аренда площадки",
@@ -92,23 +75,6 @@
 	},
 	"album-recording": {
 		"title": "Запись альбома",
-		"planning": [
-			{
-				"title": "Выбрать тип мероприятия",
-				"active": true,
-				"type": "TYPE"
-			},
-			{
-				"title": "Выбрать дату и время проведения",
-				"active": true,
-				"type": "DATE"
-			},
-			{
-				"title": "Определить бюджет",
-				"active": true,
-				"type": "BUDGET"
-			}
-		],
 		"recommendations": [
 			{
 				"title": "Аренда студии звукозаписи",
@@ -169,23 +135,6 @@
 	},
 	"hackathon": {
 		"title": "Проведение хакатона",
-		"planning": [
-			{
-				"title": "Выбрать тип мероприятия",
-				"active": true,
-				"type": "TYPE"
-			},
-			{
-				"title": "Выбрать дату и время проведения",
-				"active": true,
-				"type": "DATE"
-			},
-			{
-				"title": "Определить бюджет",
-				"active": true,
-				"type": "BUDGET"
-			}
-		],
 		"recommendations": [
 			{
 				"title": "Аренда площадки",

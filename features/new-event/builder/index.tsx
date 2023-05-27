@@ -14,7 +14,6 @@ const Builder: FC = () => {
 	const [checklistValue, setChecklistValue] = useState<Record<string, boolean>>({});
 
 	const setChecklistValueCallback = useCallback(({ eventType, timeRange, budget }: Values) => {
-		console.log("setChecklistValueCallback=", { eventType, timeRange, budget });
 		if (eventType) {
 			setCurrentChecklist(eventType);
 			setChecklistValue((prev) => ({ ...prev, TYPE: true }));
