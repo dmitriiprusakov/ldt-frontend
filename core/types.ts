@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Dayjs } from "dayjs";
+
 export type JsonRpcBody<T> = {
 	result?: T,
 	error?: {
@@ -134,5 +136,15 @@ export type Comment = {
 }
 
 export type CommentsResult = {
-	items: Comment[]
+	items: Comment[] | null
+}
+
+export type PlaceFilters = {
+	search?: string,
+	type?: string,
+	area?: string,
+	capacity?: string,
+	chairs?: boolean,
+	tables?: boolean,
+	timeRange?: [Dayjs, Dayjs]
 }

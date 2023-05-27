@@ -2,6 +2,7 @@
     width: 100%;
     height: var(--header-height);
     background: var(--header-bg);
+    flex-shrink: 0;
 }
 
 .content {

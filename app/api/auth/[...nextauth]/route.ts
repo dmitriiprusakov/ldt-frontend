@@ -13,12 +13,10 @@ const NextAuthHandler = NextAuth({
 		strategy: "jwt",
 	},
 	callbacks: {
-		jwt({ token, user, session }) {
-			console.log("jwt=", { token, session, user });
+		jwt({ token, user }) {
 			return { ...token, ...user };
 		},
-		session({ session, token, user }) {
-			console.log("session=", { token, session, user });
+		session({ session, token }) {
 			session.user = token as any;
 
 			return session;

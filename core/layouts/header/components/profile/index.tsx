@@ -7,8 +7,6 @@ import { Button } from "antd";
 const Profile: FC = () => {
 	const { data, status } = useSession();
 
-	console.log("session data=", data, status);
-
 	const handleSignIn = () => {
 		void signIn();
 	};

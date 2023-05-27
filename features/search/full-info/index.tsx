@@ -19,31 +19,12 @@ type CommentFormValues = {
 	comment: string,
 }
 
-const commentsFake = [
-	{
-		user: "Пользователь",
-		description: "Прикольно 1",
-	},
-	{
-		user: "Пользователь",
-		description: "Прикольно 2",
-	},
-	{
-		user: "Пользователь",
-		description: "Прикольно 3",
-	},
-	{
-		user: "Пользователь",
-		description: "Прикольно 4",
-	},
-];
-
 type FullInfoProps = {
 	id: string;
 }
 const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 	const [info, setInfo] = useState<PlaceResult | null>(null);
-	const [comments, setComments] = useState<Comment[]>([]);
+	const [comments, setComments] = useState<Comment[] | null>([]);
 
 	const [commentForm] = Form.useForm();
 
@@ -230,7 +211,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 						</Form.Item>
 					</Form>
 
-					<List
+					{comments && <List
 						itemLayout="vertical"
 						dataSource={comments}
 						renderItem={(item) => (
@@ -243,7 +224,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 								<div>{item.text}</div>
 							</List.Item>
 						)}
-					/>
+					/>}
 				</ConfigProvider>
 			</div>
 		</section>

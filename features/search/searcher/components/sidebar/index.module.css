@@ -1,0 +1,20 @@
+.aside {
+    min-width: 20rem;
+    max-width: 20rem;
+    border-right: 1px solid gainsboro;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.asideContent {
+    position: sticky;
+    top: 0;
+    padding: 1rem;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+}
