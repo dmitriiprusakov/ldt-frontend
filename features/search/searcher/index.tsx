@@ -12,8 +12,11 @@ const Searcher: FC = () => {
 		<section>
 			<div className={css.content}>
 				<Provider store={store}>
-					<Sidebar />
-					<div>
+					<aside className={css.aside}>
+						<Sidebar />
+					</aside>
+
+					<div className={css.main}>
 						<Filters />
 						<Items />
 					</div>

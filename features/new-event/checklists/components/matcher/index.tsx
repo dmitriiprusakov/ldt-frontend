@@ -46,12 +46,13 @@ const Matcher: FC = () => {
 
 					<Checkbox.Group value={[]} onChange={handleCheck}>
 						<div className={css.group}>
-							{currentChecklist.planning.map(item => (
+							{currentChecklist.planning.map(({ title, active }) => (
 								<Checkbox
-									key={item}
-									value={item}
+									key={title}
+									value={title}
+									disabled={!active}
 								>
-									{item}
+									{title}
 								</Checkbox>
 							))}
 						</div>
@@ -59,12 +60,13 @@ const Matcher: FC = () => {
 						<Divider />
 
 						<div className={css.group}>
-							{currentChecklist.recommendations.map(item => (
+							{currentChecklist.recommendations.map(({ title, active }) => (
 								<Checkbox
-									key={item}
-									value={item}
+									key={title}
+									value={title}
+									disabled={!active}
 								>
-									{item}
+									{title}
 								</Checkbox>
 							))}
 						</div>
@@ -72,12 +74,13 @@ const Matcher: FC = () => {
 						<Divider />
 
 						<div className={css.group}>
-							{currentChecklist.design.map(item => (
+							{currentChecklist.design.map(({ title, active }) => (
 								<Checkbox
-									key={item}
-									value={item}
+									key={title}
+									value={title}
+									disabled={!active}
 								>
-									{item}
+									{title}
 								</Checkbox>
 							))}
 						</div>

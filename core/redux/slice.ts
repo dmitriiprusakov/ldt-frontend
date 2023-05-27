@@ -12,8 +12,8 @@ export type CoreState = {
 
 const initialState: CoreState = {
 	sidebarVisibility: false,
-	checklistsData: checklistsData,
-	currentChecklist: null,
+	checklistsData: checklistsData as unknown as Checklists,
+	currentChecklist: checklistsData["art-exhibition"] as unknown as Checklist,
 	filters: null,
 };
 
@@ -27,7 +27,6 @@ export const coreSlice = createSlice({
 		setCurrentChecklist: (state, action: PayloadAction<Checklist>) => {
 			state.currentChecklist = action.payload;
 		},
-
 		setFilters: (state, action: PayloadAction<PlaceFilters>) => {
 			state.filters = action.payload;
 		},

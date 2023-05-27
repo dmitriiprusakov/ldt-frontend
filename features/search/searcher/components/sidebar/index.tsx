@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { getSession } from "next-auth/react";
 import React, { FC } from "react";
 import { useAppSelector } from "store";
+import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
 import css from "./index.module.css";
 
@@ -49,54 +50,59 @@ const Sidebar: FC = () => {
 		void createEvent({});
 	};
 
+	const handleCheck = (checkedValues: CheckboxValueType[]) => {
+		console.log("handleCheck checkedValues=", checkedValues);
+	};
+
 	return (
-		<aside className={css.aside}>
-			<div className={css.asideContent}>
-				{currentChecklist && (
-					<Checkbox.Group value={[]}>
-						<div className={css.group}>
-							{currentChecklist.planning.map(item => (
-								<Checkbox
-									key={item}
-									value={item}
-								>
-									{item}
-								</Checkbox>
-							))}
-						</div>
+		<div className={css.content}>
+			{currentChecklist && (
+				<Checkbox.Group onChange={handleCheck}>
+					<div className={css.group}>
+						{currentChecklist.planning.map(({ title, active }) => (
+							<Checkbox
+								key={title}
+								value={title}
+								disabled={!active}
+							>
+								{title}
+							</Checkbox>
+						))}
+					</div>
 
-						<Divider />
+					<Divider />
 
-						<div className={css.group}>
-							{currentChecklist.recommendations.map(item => (
-								<Checkbox
-									key={item}
-									value={item}
-								>
-									{item}
-								</Checkbox>
-							))}
-						</div>
+					<div className={css.group}>
+						{currentChecklist.recommendations.map(({ title, active }) => (
+							<Checkbox
+								key={title}
+								value={title}
+								disabled={!active}
+							>
+								{title}
+							</Checkbox>
+						))}
+					</div>
 
-						<Divider />
+					<Divider />
 
-						<div className={css.group}>
-							{currentChecklist.design.map(item => (
-								<Checkbox
-									key={item}
-									value={item}
-								>
-									{item}
-								</Checkbox>
-							))}
-						</div>
-					</Checkbox.Group>
-				)}
-				<Button type="primary" onClick={handleSubmit}>
-					Создать мероприятие
-				</Button>
-			</div>
-		</aside>
+					<div className={css.group}>
+						{currentChecklist.design.map(({ title, active }) => (
+							<Checkbox
+								key={title}
+								value={title}
+								disabled={!active}
+							>
+								{title}
+							</Checkbox>
+						))}
+					</div>
+				</Checkbox.Group>
+			)}
+			<Button type="primary" onClick={handleSubmit}>
+				Создать мероприятие
+			</Button>
+		</div>
 	);
 };
 

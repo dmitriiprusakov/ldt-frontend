@@ -16,7 +16,6 @@ const Items: FC = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log("currentFilters=", currentFilters);
 		currentFilters && void fetchData(currentFilters);
 	}, [currentFilters]);
 
@@ -41,9 +40,8 @@ const Items: FC = () => {
 			}
 		);
 
-		if (seacrhData.error || !seacrhData.result) return setItems([]);
+		if (seacrhData.error || !seacrhData.result?.items) return setItems([]);
 
-		console.log("seacrhData=", seacrhData);
 		setItems(seacrhData.result.items);
 	};
 
