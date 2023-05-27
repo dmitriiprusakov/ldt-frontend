@@ -2,13 +2,13 @@
     width: 100%;
     margin: 0 auto;
     max-width: var(--max-width);
-    padding: 3rem var(--sides-padding);
+    padding: 0 var(--sides-padding);
     display: flex;
 }
 
 .aside {
-    min-width: 20rem;
-    max-width: 20rem;
+    min-width: 24rem;
+    max-width: 24rem;
     border-right: 1px solid gainsboro;
     margin-right: 1rem;
     display: flex;
@@ -19,4 +19,5 @@
 
 .main {
     padding: 1rem;
+    width: 100%;
 }

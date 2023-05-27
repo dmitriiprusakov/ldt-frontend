@@ -3,24 +3,19 @@
 		"title": "Выставка картин",
 		"planning": [
 			{
+				"title": "Выбрать тип мероприятия",
+				"active": true,
+				"type": "TYPE"
+			},
+			{
 				"title": "Выбрать дату и время проведения",
 				"active": true,
 				"type": "DATE"
 			},
 			{
-				"title": "Выбрать для какой компании",
-				"active": true,
-				"type": "COMPANY"
-			},
-			{
 				"title": "Определить бюджет",
 				"active": true,
 				"type": "BUDGET"
-			},
-			{
-				"title": "Задать параметры мероприятия",
-				"active": true,
-				"type": "PARAMETERS"
 			}
 		],
 		"recommendations": [
@@ -99,64 +94,45 @@
 		"title": "Запись альбома",
 		"planning": [
 			{
+				"title": "Выбрать тип мероприятия",
+				"active": true,
+				"type": "TYPE"
+			},
+			{
 				"title": "Выбрать дату и время проведения",
 				"active": true,
 				"type": "DATE"
 			},
 			{
-				"title": "Выбрать для какой компании",
-				"active": true,
-				"type": "COMPANY"
-			},
-			{
 				"title": "Определить бюджет",
 				"active": true,
 				"type": "BUDGET"
-			},
-			{
-				"title": "Задать параметры мероприятия",
-				"active": true,
-				"type": "PARAMETERS"
 			}
 		],
 		"recommendations": [
 			{
-				"title": "Аренда площадки",
+				"title": "Аренда студии звукозаписи",
 				"active": true,
 				"type": "PLACE"
 			},
 			{
-				"title": "Цветы и оформление",
-				"active": true,
-				"type": "FLOWERS"
+				"title": "Аренда инструментов",
+				"active": true
 			},
 			{
-				"title": "Фуршет",
-				"active": true,
-				"type": "CATERING"
+				"title": "Трансфер музыкантов",
+				"active": true
 			},
 			{
-				"title": "Приглашение спикеров",
+				"title": "Сведение и мастеринг",
 				"active": false
 			},
 			{
-				"title": "Оборудование",
+				"title": "Продюсирование",
 				"active": false
 			},
 			{
-				"title": "Реклама и маркетинг",
-				"active": false
-			},
-			{
-				"title": "Разослать приглашения",
-				"active": false
-			},
-			{
-				"title": "Охрана",
-				"active": false
-			},
-			{
-				"title": "Музыканты",
+				"title": "Распространение",
 				"active": false
 			},
 			{
@@ -195,24 +171,19 @@
 		"title": "Проведение хакатона",
 		"planning": [
 			{
+				"title": "Выбрать тип мероприятия",
+				"active": true,
+				"type": "TYPE"
+			},
+			{
 				"title": "Выбрать дату и время проведения",
 				"active": true,
 				"type": "DATE"
 			},
 			{
-				"title": "Выбрать для какой компании",
-				"active": true,
-				"type": "COMPANY"
-			},
-			{
 				"title": "Определить бюджет",
 				"active": true,
 				"type": "BUDGET"
-			},
-			{
-				"title": "Задать параметры мероприятия",
-				"active": true,
-				"type": "PARAMETERS"
 			}
 		],
 		"recommendations": [
@@ -222,21 +193,16 @@
 				"type": "PLACE"
 			},
 			{
-				"title": "Цветы и оформление",
-				"active": true,
-				"type": "FLOWERS"
-			},
-			{
 				"title": "Фуршет",
 				"active": true,
 				"type": "CATERING"
 			},
 			{
-				"title": "Приглашение спикеров",
+				"title": "Аренда оборудования",
 				"active": false
 			},
 			{
-				"title": "Оборудование",
+				"title": "Приглашение спикеров",
 				"active": false
 			},
 			{
@@ -244,7 +210,11 @@
 				"active": false
 			},
 			{
-				"title": "Разослать приглашения",
+				"title": "Сувениры и мерч",
+				"active": false
+			},
+			{
+				"title": "Видеозапись, видеотрансляция",
 				"active": false
 			},
 			{
@@ -252,7 +222,7 @@
 				"active": false
 			},
 			{
-				"title": "Музыканты",
+				"title": "Уборка",
 				"active": false
 			},
 			{

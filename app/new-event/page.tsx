@@ -1,5 +1,5 @@
 import { Footer, Header, Main } from "core/layouts";
-import { Hero, Checklists } from "features/new-event";
+import { Hero, Builder } from "features/new-event";
 
 export default function NewServicePage() {
 	return (
@@ -7,7 +7,7 @@ export default function NewServicePage() {
 			<Header />
 			<Main>
 				<Hero />
-				<Checklists />
+				<Builder />
 			</Main>
 			<Footer>
 				content profile

@@ -37,7 +37,7 @@ export default function SignInPage() {
 				<Form.Item
 					label="E-mail"
 					name="email"
-					rules={[{ required: true, message: "Обязаьельное поле" }]}
+					rules={[{ required: true, message: "Обязательное поле" }]}
 				>
 					<Input />
 				</Form.Item>
@@ -45,7 +45,7 @@ export default function SignInPage() {
 				<Form.Item
 					label="Пароль"
 					name="password"
-					rules={[{ required: true, message: "Обязаьельное поле" }]}
+					rules={[{ required: true, message: "Обязательное поле" }]}
 				>
 					<Input.Password />
 				</Form.Item>

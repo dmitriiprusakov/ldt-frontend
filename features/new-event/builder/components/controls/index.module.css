@@ -1,0 +1,13 @@
+.form {
+    max-width: 30rem;
+}
+
+.rangePicker,
+.inputNumber {
+    width: 100%;
+}
+
+.submitButtons {
+    display: flex;
+    justify-content: space-between;
+}
