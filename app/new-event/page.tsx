@@ -9,9 +9,7 @@ export default function NewServicePage() {
 				<Hero />
 				<Builder />
 			</Main>
-			<Footer>
-				content profile
-			</Footer>
+			<Footer />
 		</>
 	);
 }

@@ -9,9 +9,7 @@ export default function SeacrhPage() {
 				<Hero />
 				<Searcher />
 			</Main>
-			<Footer>
-				content Search
-			</Footer>
+			<Footer />
 		</>
 	);
 }

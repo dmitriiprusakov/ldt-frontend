@@ -14,9 +14,7 @@ export default function ProfilePage() {
 					<ProfileInfo />
 				</SessionProvider>
 			</Main>
-			<Footer>
-				content profile
-			</Footer>
+			<Footer />
 		</>
 	);
 }

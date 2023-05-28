@@ -10,9 +10,7 @@ export default function SearchItemPage(
 			<Main>
 				<FullInfo id={params.id} />
 			</Main>
-			<Footer>
-				content Search
-			</Footer>
+			<Footer />
 		</>
 	);
 }

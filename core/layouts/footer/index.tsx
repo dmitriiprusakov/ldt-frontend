@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { FC, PropsWithChildren } from "react";
+import React, { FC } from "react";
 
 import css from "./index.module.css";
 
