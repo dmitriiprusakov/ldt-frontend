@@ -2,7 +2,7 @@
     width: 100%;
     margin: 0 auto;
     max-width: var(--max-width);
-    padding: 6rem var(--sides-padding);
+    padding: 5rem var(--sides-padding);
 
     display: flex;
     align-items: center;

@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Dayjs } from "dayjs";
+export type Statistic = {
+	events_count: number;
+	users_count: number;
+	services_count: number;
+}
 
 export type JsonRpcBody<T> = {
 	result?: T;

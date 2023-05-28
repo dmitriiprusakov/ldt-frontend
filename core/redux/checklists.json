@@ -75,11 +75,11 @@
 			},
 			{
 				"title": "Аренда инструментов",
-				"active": true
+				"active": false
 			},
 			{
 				"title": "Трансфер музыкантов",
-				"active": true
+				"active": false
 			},
 			{
 				"title": "Сведение и мастеринг",
