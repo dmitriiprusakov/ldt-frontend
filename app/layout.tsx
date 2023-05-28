@@ -1,6 +1,9 @@
-import { PropsWithChildren } from "react";
 import "styles/globals.css";
 import "styles/nprogress.css";
+
+import { PropsWithChildren } from "react";
+
+import { CeraProRegular } from "core/fonts";
 
 import css from "./index.module.css";
 
@@ -11,7 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
 	return (
-		<html lang="en">
+		<html lang="en" className={CeraProRegular.className}>
 			<body>
 				<section className={css.layout}>
 					{children}

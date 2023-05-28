@@ -2,8 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 
-import nextSvg from "public/next.svg";
-
 import css from "./index.module.css";
 import clsx from "clsx";
 
@@ -13,7 +11,8 @@ const Hero: FC = () => {
 			<div className={css.content}>
 				<div className={css.text}>
 					<h1>
-						Провести мероприятие в Москве легко
+						Организуйте
+						идеальное мероприятие
 					</h1>
 					<div className={css.links}>
 						<Link
@@ -26,11 +25,16 @@ const Hero: FC = () => {
 							href="/new-service"
 							className={css.link}
 						>
-							Разместить услуги
+							Добавить свои услуги
 						</Link>
 					</div>
 				</div>
-				<Image src={nextSvg} alt="image" />
+				<Image
+					width={450}
+					height={380}
+					src={"/HeroImage.png"}
+					alt="Красивые малиновые буквы O O P"
+				/>
 			</div>
 		</section>
 	);
