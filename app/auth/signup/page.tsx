@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 import css from "./page.module.css";
+import ThemeProvider from "core/theme";
 
 const { Option } = Select;
 
@@ -72,59 +73,60 @@ export default function SignUpPage() {
 
 	return (
 		<div className={css.signup}>
-			<Form
-				layout="vertical"
-				onFinish={onFinish}
-				autoComplete="off"
-			>
-				<Form.Item
-					label="Имя"
-					name="fio"
-					rules={[{ required: true, message: "Обязательное поле" }]}
+			<ThemeProvider>
+				<Form
+					layout="vertical"
+					onFinish={onFinish}
+					autoComplete="off"
 				>
-					<Input />
-				</Form.Item>
+					<Form.Item
+						label="Имя"
+						name="fio"
+						rules={[{ required: true, message: "Обязательное поле" }]}
+					>
+						<Input />
+					</Form.Item>
 
-				<Form.Item
-					label="E-mail"
-					name="email"
-					rules={[{ required: true, message: "Обязательное поле" }]}
-				>
-					<Input />
-				</Form.Item>
+					<Form.Item
+						label="E-mail"
+						name="email"
+						rules={[{ required: true, message: "Обязательное поле" }]}
+					>
+						<Input />
+					</Form.Item>
 
-				<Form.Item
-					label="Пароль"
-					name="password"
-					rules={[{ required: true, message: "Обязательное поле" }]}
-				>
-					<Input.Password />
-				</Form.Item>
+					<Form.Item
+						label="Пароль"
+						name="password"
+						rules={[{ required: true, message: "Обязательное поле" }]}
+					>
+						<Input.Password />
+					</Form.Item>
 
-				<Form.Item>
-					<div className={css.row}>
-						<Button type="primary" htmlType="submit">
-							Зарегистрироваться
-						</Button>
+					<Form.Item>
+						<div className={css.row}>
+							<Button type="primary" htmlType="submit">
+								Зарегистрироваться
+							</Button>
 
-						<Link href="/auth/signin">Войти</Link>
-					</div>
-				</Form.Item>
+							<Link href="/auth/signin">Войти</Link>
+						</div>
+					</Form.Item>
 
-				<Divider plain>Дополнительно</Divider>
+					<Divider plain>Дополнительно</Divider>
 
-				<Form.Item
-					name="vendor_id"
-					label="Предоставляю компанию"
-				>
-					<Select allowClear>
-						{vendors.map(({ id, title }) => (
-							<Option key={id} value={id}>{title}</Option>
-						))}
-					</Select>
-				</Form.Item>
+					<Form.Item
+						name="vendor_id"
+						label="Предоставляю компанию"
+					>
+						<Select allowClear>
+							{vendors.map(({ id, title }) => (
+								<Option key={id} value={id}>{title}</Option>
+							))}
+						</Select>
+					</Form.Item>
 
-				{/* <Form.Item
+					{/* <Form.Item
 					name="vendor_type"
 					label="Предоставляю услуги как"
 				>
@@ -133,7 +135,8 @@ export default function SignUpPage() {
 						<Option value="FIZIK">Самозанятый</Option>
 					</Select>
 				</Form.Item> */}
-			</Form>
+				</Form>
+			</ThemeProvider>
 		</div>
 	);
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import ThemeProvider from "core/theme";
 import React, { FC, useCallback, useState } from "react";
 import { Provider } from "react-redux";
 
@@ -28,18 +29,20 @@ const Builder: FC = () => {
 		<section>
 			<div className={css.content}>
 				<Provider store={store}>
-					<aside className={css.aside}>
-						<Checklist
-							currentChecklistId={currentChecklist}
-							checklistValue={checklistValue}
-						/>
-					</aside>
+					<ThemeProvider>
+						<aside className={css.aside}>
+							<Checklist
+								currentChecklistId={currentChecklist}
+								checklistValue={checklistValue}
+							/>
+						</aside>
 
-					<div className={css.main}>
-						<Controls
-							setChecklistValueCallback={setChecklistValueCallback}
-						/>
-					</div>
+						<div className={css.main}>
+							<Controls
+								setChecklistValueCallback={setChecklistValueCallback}
+							/>
+						</div>
+					</ThemeProvider>
 				</Provider>
 			</div>
 		</section>

@@ -5,6 +5,7 @@
 
 import { Avatar, Card, List } from "antd";
 import { eventsFetcher } from "core/fetchers";
+import ThemeProvider from "core/theme";
 import { Event, EventsResult, JsonRpcBody, User } from "core/types";
 import dayjs from "dayjs";
 import { getSession, useSession } from "next-auth/react";
@@ -54,46 +55,48 @@ export default function ProfileInfo() {
 	return (
 		<section>
 			<div className={css.content}>
-				<Card
-					loading={status === "loading"}
-					title={user?.fio}
-					extra={
-						user?.admin && (
-							<Link href={"/admin"}>
-								К панели администратора
-							</Link>
-						)
-					}
-				>
-					<Card.Meta
-						avatar={<Avatar src={user?.avatar_url} />}
-						title={user?.email}
-					/>
-				</Card>
-				<h2 style={{ marginBottom: "1rem" }}>История мероприятий:</h2>
-				{myEvents.map(event => (
+				<ThemeProvider>
 					<Card
-						size="small"
-						key={event.id}
-						title={event.title}
-						extra={dayjs(event.created_at).format("DD.MM.YYYY")}
+						loading={status === "loading"}
+						title={user?.fio}
+						extra={
+							user?.admin && (
+								<Link href={"/admin"}>
+									К панели администратора
+								</Link>
+							)
+						}
 					>
-						<List
-							size="small"
-							itemLayout="horizontal"
-							dataSource={event.items || []}
-							renderItem={(item) => (
-								<List.Item>
-									<List.Item.Meta
-										// @ts-ignore
-										avatar={<Avatar size={"large"} shape="square" src={item.type === "PLACE" ? item.photo : item.images[0]} />}
-										title={item.title}
-									/>
-								</List.Item>
-							)}
+						<Card.Meta
+							avatar={<Avatar src={user?.avatar_url} />}
+							title={user?.email}
 						/>
 					</Card>
-				))}
+					<h2 style={{ marginBottom: "1rem" }}>История мероприятий:</h2>
+					{myEvents.map(event => (
+						<Card
+							size="small"
+							key={event.id}
+							title={event.title}
+							extra={dayjs(event.created_at).format("DD.MM.YYYY")}
+						>
+							<List
+								size="small"
+								itemLayout="horizontal"
+								dataSource={event.items || []}
+								renderItem={(item) => (
+									<List.Item>
+										<List.Item.Meta
+											// @ts-ignore
+											avatar={<Avatar size={"large"} shape="square" src={item.type === "PLACE" ? item.photo : item.images[0]} />}
+											title={item.title}
+										/>
+									</List.Item>
+								)}
+							/>
+						</Card>
+					))}
+				</ThemeProvider>
 			</div>
 		</section>
 	);

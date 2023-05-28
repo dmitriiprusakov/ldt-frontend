@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Form, Input } from "antd";
+import ThemeProvider from "core/theme";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 
@@ -30,35 +31,37 @@ export default function SignInPage() {
 
 	return (
 		<div className={css.signin}>
-			<Form
-				layout="vertical"
-				onFinish={onFinish}
-			>
-				<Form.Item
-					label="E-mail"
-					name="email"
-					rules={[{ required: true, message: "Обязательное поле" }]}
+			<ThemeProvider>
+				<Form
+					layout="vertical"
+					onFinish={onFinish}
 				>
-					<Input />
-				</Form.Item>
+					<Form.Item
+						label="E-mail"
+						name="email"
+						rules={[{ required: true, message: "Обязательное поле" }]}
+					>
+						<Input />
+					</Form.Item>
 
-				<Form.Item
-					label="Пароль"
-					name="password"
-					rules={[{ required: true, message: "Обязательное поле" }]}
-				>
-					<Input.Password />
-				</Form.Item>
+					<Form.Item
+						label="Пароль"
+						name="password"
+						rules={[{ required: true, message: "Обязательное поле" }]}
+					>
+						<Input.Password />
+					</Form.Item>
 
-				<Form.Item noStyle>
-					<div className={css.row}>
-						<Button type="primary" htmlType="submit">
-							Войти
-						</Button>
-						<Link href="/auth/signup">Регистрация</Link>
-					</div>
-				</Form.Item>
-			</Form>
+					<Form.Item noStyle>
+						<div className={css.row}>
+							<Button type="primary" htmlType="submit">
+								Войти
+							</Button>
+							<Link href="/auth/signup">Регистрация</Link>
+						</div>
+					</Form.Item>
+				</Form>
+			</ThemeProvider>
 		</div>
 	);
 }

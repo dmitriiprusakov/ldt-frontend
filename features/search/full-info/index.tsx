@@ -2,15 +2,15 @@
 "use client";
 
 import { BookOutlined, MessageOutlined, ScheduleOutlined } from "@ant-design/icons";
-import { Avatar, Badge, Button, Calendar, Card, Carousel, ConfigProvider, Descriptions, Divider, Form, Input, List, Rate } from "antd";
+import { Avatar, Badge, Button, Card, Carousel, Descriptions, Divider, Form, Input, List, Rate } from "antd";
 import { eventsFetcher, ratingFetcher } from "core/fetchers";
 import { Comment, CommentsResult, JsonRpcBody, PlaceResult } from "core/types";
 import React, { FC, useEffect, useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import ruRU from "antd/locale/ru_RU";
+import dayjs from "dayjs";
 
 import css from "./index.module.css";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import ThemeProvider from "core/theme";
 
 const { Item } = Descriptions;
 
@@ -105,7 +105,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 	return (
 		<section>
 			<div className={css.content}>
-				<ConfigProvider locale={ruRU}>
+				<ThemeProvider>
 					<Card
 						className={css.card}
 						cover={
@@ -225,7 +225,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 							</List.Item>
 						)}
 					/>}
-				</ConfigProvider>
+				</ThemeProvider>
 			</div>
 		</section>
 	);
