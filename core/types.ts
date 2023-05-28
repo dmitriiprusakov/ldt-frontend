@@ -177,3 +177,17 @@ export type PlaceFilters = {
 	tables?: boolean;
 	timeRange?: [string, string];
 }
+
+export type EventsResult = {
+	next_page_key: number;
+	items: Event[];
+}
+
+export type Event = {
+	created_at: string,
+	updated_at: string,
+	author_id: number,
+	id: number,
+	title: string,
+	items: (SearchItem | ServiceSearchItem)[]
+} 

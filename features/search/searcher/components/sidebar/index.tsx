@@ -70,9 +70,11 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 
 	const checklistValue = Object.keys(event);
 
+	console.log(event);
+
 	return (
 		<div className={css.content}>
-			{currentChecklist && (
+			{currentChecklist ? (
 				<Checkbox.Group
 					className={css.checkboxGroup}
 					value={checklistValue}
@@ -118,6 +120,21 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 						))}
 					</div>
 				</Checkbox.Group>
+			) : (
+				Object.keys(event).map(type => {
+					const service = event[type];
+					return (
+						<Card key={type ?? service.title} style={{ marginBottom: "1rem" }}>
+							<Card.Meta
+								// @ts-ignore
+								avatar={<Avatar size={"large"} shape="square" src={type === "PLACE" ? service.photo : service.images[0]} />}
+								title={service.title}
+								// @ts-ignore
+								description={type === "PLACE" ? `${service.price} ₽` : `${service.min_price} - ${service.max_price} ₽`}
+							/>
+						</Card>
+					);
+				})
 			)}
 
 			<Button className={css.submit} type="primary" onClick={handleSubmit}>
