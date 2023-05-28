@@ -2,6 +2,8 @@ import { Footer, Header, Main } from "core/layouts";
 import { JsonRpcBody, Statistic } from "core/types";
 import { Cases, Hero, RecentEvents, Stats } from "features/home";
 
+import css from "./index.module.css";
+
 // async function getData() {
 // 	if (!process.env.NEXT_PUBLIC_URL) return;
 
@@ -18,7 +20,7 @@ export default function RootPage() {
 	// const data = await getData();
 
 	return (
-		<>
+		<div className={css.home}>
 			<Header />
 			<Main >
 				<Hero />
@@ -61,6 +63,6 @@ export default function RootPage() {
 				<RecentEvents />
 			</Main>
 			<Footer />
-		</>
+		</div>
 	);
 }
