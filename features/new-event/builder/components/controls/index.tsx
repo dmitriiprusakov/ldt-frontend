@@ -83,7 +83,7 @@ const Controls: FC<Props> = ({
 				</Form.Item>
 				<Form.Item label=" " className={css.submitButtons}>
 					<Button type="primary" htmlType="submit" >
-						Следовать по чеклисту
+						Перейти к выбору услуг
 					</Button>
 					<Link href="/search" >
 						<Button type="link">

@@ -3,12 +3,13 @@
 "use client";
 
 import { InboxOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Upload } from "antd";
+import { Button, Form, Input, message, Upload } from "antd";
 
 import { eventsFetcher } from "core/fetchers";
 import ThemeProvider from "core/theme";
 import { JsonRpcBody } from "core/types";
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import css from "./index.module.css";
 
@@ -21,6 +22,7 @@ type FormValues = {
 
 //accessToken положить в куки чтобы попала на бэк
 export default function NewService() {
+	const router = useRouter();
 
 	const addService = async ({ title, address, description, phone }: FormValues) => {
 		const session = await getSession();
@@ -45,7 +47,14 @@ export default function NewService() {
 		);
 		console.log(addPlaceData);
 
-		// console.log(vendorsData);
+		if (addPlaceData.error || !addPlaceData.result) return;
+
+		void message.success("Заявка отправлена на модерацию");
+
+		setTimeout(() => {
+			router.push("/");
+		}, 3000);
+
 	};
 
 	const onFinish = (values: FormValues) => {
