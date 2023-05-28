@@ -2,27 +2,27 @@ import { Footer, Header, Main } from "core/layouts";
 import { JsonRpcBody, Statistic } from "core/types";
 import { Cases, Hero, RecentEvents, Stats } from "features/home";
 
-async function getData() {
-	if (!process.env.NEXT_PUBLIC_URL) return;
+// async function getData() {
+// 	if (!process.env.NEXT_PUBLIC_URL) return;
 
-	const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/stats`);
+// 	const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/stats`);
 
-	if (!res.ok) {
-		return;
-	}
+// 	if (!res.ok) {
+// 		return;
+// 	}
 
-	return res.json() as Promise<JsonRpcBody<Statistic>>;
-}
+// 	return res.json() as Promise<JsonRpcBody<Statistic>>;
+// }
 
-export default async function RootPage() {
-	const data = await getData();
+export default function RootPage() {
+	// const data = await getData();
 
 	return (
 		<>
 			<Header />
 			<Main >
 				<Hero />
-				{data?.result && <Stats data={data.result} />}
+				{/* {data?.result && <Stats data={data.result} />} */}
 				<Cases
 					title="Что можно провести?"
 					subtitle="Мероприятие любого типа «под ключ»"
