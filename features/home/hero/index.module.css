@@ -2,7 +2,7 @@
     width: 100%;
     margin: 0 auto;
     max-width: var(--max-width);
-    padding: 5rem var(--sides-padding);
+    padding: 5rem var(--home-sides-padding);
 
     display: flex;
     align-items: center;
@@ -46,4 +46,20 @@
 .primary {
     background: var(--highlight-dark);
     border: 1px solid transparent;
+}
+
+.spot1,
+.spot2 {
+    position: absolute;
+    z-index: -10;
+}
+
+.spot1 {
+    top: 0;
+    left: 0;
+}
+
+.spot2 {
+    top: 0;
+    right: 0;
 }

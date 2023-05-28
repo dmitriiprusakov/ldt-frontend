@@ -1,0 +1,88 @@
+.section {
+    position: relative;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+    max-width: var(--max-width);
+    padding: 5rem var(--home-sides-padding);
+
+    display: flex;
+}
+
+.left,
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.left {
+    margin-right: 2rem;
+    width: 60%;
+}
+
+.left h2 {
+    font-size: 4rem;
+    font-weight: 600;
+    line-height: 75px;
+    margin-bottom: 2rem;
+}
+
+.right {
+    padding-top: 1.5rem;
+    width: 40%;
+}
+
+.right h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.right p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.links {
+    list-style: none;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.links a {
+    text-decoration: underline;
+}
+
+.link {
+    padding: 0.5rem 1rem;
+    background: var(--highlight-dark);
+    color: var(--color-primary);
+    border-radius: 2px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    white-space: nowrap;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+.spotLeft,
+.spotRight {
+    position: absolute;
+    z-index: -10;
+}
+
+.spotLeft {
+    top: 0;
+    left: 0;
+}
+
+.spotRight {
+    top: 0;
+    right: 0;
+}

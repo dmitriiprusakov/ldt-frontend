@@ -1,6 +1,6 @@
 import { Footer, Header, Main } from "core/layouts";
 import { JsonRpcBody, Statistic } from "core/types";
-import { Hero, Stats } from "features/home";
+import { Cases, Hero, RecentEvents, Stats } from "features/home";
 
 async function getData() {
 	if (!process.env.NEXT_PUBLIC_URL) return;
@@ -14,15 +14,51 @@ async function getData() {
 	return res.json() as Promise<JsonRpcBody<Statistic>>;
 }
 
-export default function RootPage() {
-	// const data = await getData();
+export default async function RootPage() {
+	const data = await getData();
 
 	return (
 		<>
 			<Header />
 			<Main >
 				<Hero />
-				{/* {data?.result && <Stats data={data.result} />} */}
+				{data?.result && <Stats data={data.result} />}
+				<Cases
+					title="Что можно провести?"
+					subtitle="Мероприятие любого типа «под ключ»"
+					hint="ИИ-ассистент составит план или порекомендует готовый пресет уже прошедшего мероприятия"
+					linkHref="/new-event"
+					linkText="Создать мероприятие"
+					spotOnLeft={true}
+					links={[
+						"Проведение хакатона",
+						"Выставка картин",
+						"Запись альбома",
+						"Мастер-класс",
+						"Семинар",
+						"Сьемка клипа",
+						"Свадьба",
+					]}
+				/>
+				<Cases
+					title="Какие услуги есть?"
+					subtitle="Выбор всех услуг по системе «единого окна»"
+					hint="Маркетплейс услуг, необходимых для проведения идеального мероприятия"
+					linkHref="/new-service"
+					linkText="Добавить свои услуги"
+					spotOnLeft={false}
+					links={[
+						"Площадки",
+						"Цветы и декор",
+						"Кейтеринг",
+						"Оформление",
+						"Фотосъемка",
+						"Продвижение",
+						"Музыканты",
+						"Уборка",
+					]}
+				/>
+				<RecentEvents />
 			</Main>
 			<Footer />
 		</>
