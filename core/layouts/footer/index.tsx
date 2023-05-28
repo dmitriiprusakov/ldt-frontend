@@ -3,14 +3,39 @@ import React, { FC, PropsWithChildren } from "react";
 
 import css from "./index.module.css";
 
-const Footer: FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
+const Footer: FC = () => {
 	return (
 		<footer className={css.footer}>
 			<div className={css.content}>
-				<Link href="/">
-					Go back
-				</Link>
-				{children}
+				<ul className={css.links}>
+					<li>
+						<Link href="/">
+							EventLoop
+						</Link>
+					</li>
+					<li>
+						<Link href="https://createdin.moscow/">
+							АКИ
+						</Link>
+					</li>
+				</ul>
+				<ul className={css.links}>
+					<li>
+						<Link href="/">
+							Правила
+						</Link>
+					</li>
+					<li>
+						<Link href="/">
+							FAQ
+						</Link>
+					</li>
+					<li>
+						<Link href="/">
+							Арендодателям
+						</Link>
+					</li>
+				</ul>
 			</div>
 		</footer>
 	);

@@ -9,12 +9,30 @@
     height: 100%;
     margin: 0 auto;
     max-width: var(--max-width);
-    padding: 1rem var(--sides-padding);
+    padding: 1.25rem var(--sides-padding);
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
+.logoLink {
+    display: flex;
+}
+
+.logoLink svg {
+    margin-bottom: -1rem;
+}
+
 .links {
     list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.links li {
+    margin-right: 1rem;
+}
+
+.links li:last-child {
+    margin-right: 0;
 }

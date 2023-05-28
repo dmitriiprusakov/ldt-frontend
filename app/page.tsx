@@ -8,9 +8,7 @@ export default function RootPage() {
 			<Main >
 				<Hero />
 			</Main>
-			<Footer>
-				index
-			</Footer>
+			<Footer />
 		</>
 	);
 }
