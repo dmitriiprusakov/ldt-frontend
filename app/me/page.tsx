@@ -1,11 +1,18 @@
+"use client";
+
 import { Footer, Header, Main } from "core/layouts";
+import { Hero, ProfileInfo } from "features/profile";
+import { SessionProvider } from "next-auth/react";
 
 export default function ProfilePage() {
 	return (
 		<>
 			<Header />
 			<Main>
-				<h1>Profile?</h1>
+				<SessionProvider>
+					<Hero />
+					<ProfileInfo />
+				</SessionProvider>
 			</Main>
 			<Footer>
 				content profile

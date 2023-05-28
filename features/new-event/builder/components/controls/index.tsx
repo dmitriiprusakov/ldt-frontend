@@ -37,6 +37,7 @@ const Controls: FC<Props> = ({
 		const to_ts = timeRange?.at(-1)?.toISOString();
 
 		const searchParams = new URLSearchParams();
+
 		eventType && searchParams.set("et", eventType);
 		budget && searchParams.set("b", `${budget}`);
 		from_ts && searchParams.set("from", from_ts);

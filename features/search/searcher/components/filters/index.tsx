@@ -14,13 +14,16 @@ const Filters: FC = () => {
 	const dispatch = useAppDispatch();
 	const searchParams = useSearchParams();
 
+	const from = searchParams.get("from") || "";
+	const to = searchParams.get("to") || "";
+
 	useEffect(() => {
 		const filtersPresetFromUrl = {
-			timeRange: [dayjs(searchParams.get("from")), dayjs(searchParams.get("to"))] as [Dayjs, Dayjs],
+			timeRange: (from && to) ? [from, to] as [string, string] : undefined,
 		};
 
 		dispatch(setFilters(filtersPresetFromUrl));
-	}, [dispatch, searchParams]);
+	}, [dispatch, from, searchParams, to]);
 
 	const onFinish = (values: PlaceFilters) => {
 		dispatch(setFilters(values));
@@ -28,8 +31,8 @@ const Filters: FC = () => {
 
 	const fields = useMemo(() => ([{
 		name: ["timeRange"],
-		value: [dayjs(searchParams.get("from")), dayjs(searchParams.get("to"))],
-	}]), [searchParams]);
+		value: (from && to) ? [dayjs(from), dayjs(to)] : null,
+	}]), [from, to]);
 
 	return (
 		<div className={css.filters}>

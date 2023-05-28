@@ -1,21 +1,29 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Avatar, Button, Card, Checkbox, Divider } from "antd";
 import { eventsFetcher } from "core/fetchers";
-import { JsonRpcBody, SearchItemShort } from "core/types";
+import { JsonRpcBody, SearchItemShort, ServiceSearchItemShort } from "core/types";
 import dayjs from "dayjs";
 import { getSession } from "next-auth/react";
 import React, { FC } from "react";
 import { useAppSelector } from "store";
-import type { CheckboxValueType } from "antd/es/checkbox/Group";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import css from "./index.module.css";
 
 type Props = {
-	event: Record<string, SearchItemShort>;
+	event: Record<string, SearchItemShort | ServiceSearchItemShort>;
 }
 const Sidebar: FC<Props> = ({ event }: Props) => {
-	const currentChecklist = useAppSelector((state) => state.core.currentChecklist);
+	const checklistsData = useAppSelector((state) => state.core.checklistsData);
+	const searchParams = useSearchParams();
+	const router = useRouter();
+	const eventType = searchParams.get("et") || "";
 
-	const createEvent = async ({ search, capacity, area, chairs, tables, timeRange }: any) => {
+	const currentChecklist = checklistsData[eventType];
+
+	const createEvent = async (event: Record<string, SearchItemShort | ServiceSearchItemShort>) => {
 		const session = await getSession();
 
 		if (!session?.user) return;
@@ -23,19 +31,22 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 		const from_ts = dayjs().toISOString();
 		const to_ts = dayjs().toISOString();
 
+		const services = Object.keys(event).map(serviceType => {
+			const service = event[serviceType];
+			return {
+				type: serviceType,
+				service_id: service.id,
+				from_ts: from_ts,
+				to_ts: to_ts,
+			};
+		});
+
 		const { data } = await eventsFetcher.post<JsonRpcBody<any>>(
 			"/",
 			{
 				method: "create_event",
-				title: "!!!test event!!!",
-				services: [
-					{
-						type: "PLACE",
-						service_id: 2039,
-						from_ts: from_ts,
-						to_ts: to_ts,
-					},
-				],
+				title: "Мероприятие",
+				services: services,
 			},
 			{
 				headers: {
@@ -47,18 +58,17 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 		if (data.error || !data.result) return;
 
 		console.log("data=", data);
+
+		router.push("/me");
 	};
 
 	const handleSubmit = () => {
-		void createEvent({});
-	};
+		console.log("handleSubmit=", event);
 
-	const handleCheck = (checkedValues: CheckboxValueType[]) => {
-		console.log("handleCheck checkedValues=", checkedValues);
+		void createEvent(event);
 	};
 
 	const checklistValue = Object.keys(event);
-	console.log("checklistValue=", checklistValue, event);
 
 	return (
 		<div className={css.content}>
@@ -66,7 +76,6 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 				<Checkbox.Group
 					className={css.checkboxGroup}
 					value={checklistValue}
-					onChange={handleCheck}
 				>
 					<Divider orientation="left">Организация</Divider>
 
@@ -83,9 +92,11 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 								{type && event[type] && (
 									<Card size="small">
 										<Card.Meta
-											avatar={<Avatar size={"large"} shape="square" src={event[type].photo} />}
+											// @ts-ignore
+											avatar={<Avatar size={"large"} shape="square" src={type === "PLACE" ? event[type].photo : event[type].images[0]} />}
 											title={event[type].title}
-											description={`${event[type].price} ₽`}
+											// @ts-ignore
+											description={type === "PLACE" ? `${event[type].price} ₽` : `${event[type].min_price} - ${event[type].max_price} ₽`}
 										/>
 									</Card>
 								)}
@@ -96,10 +107,10 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 					<Divider orientation="left">Оформление</Divider>
 
 					<div className={css.group}>
-						{currentChecklist.design.map(({ title, active }) => (
+						{currentChecklist.design.map(({ title, active, type }) => (
 							<Checkbox
-								key={title}
-								value={title}
+								key={type ?? title}
+								value={type}
 								disabled={!active}
 							>
 								{title}
@@ -108,7 +119,8 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 					</div>
 				</Checkbox.Group>
 			)}
-			<Button type="primary" onClick={handleSubmit}>
+
+			<Button className={css.submit} type="primary" onClick={handleSubmit}>
 				Создать мероприятие
 			</Button>
 		</div>

@@ -56,20 +56,12 @@
 		],
 		"design": [
 			{
-				"title": "Регистрация на Eventloop",
-				"active": false
-			},
-			{
-				"title": "Согласование с начальством",
-				"active": false
-			},
-			{
 				"title": "Оформление документов",
-				"active": false
+				"active": true
 			},
 			{
 				"title": "Оплата",
-				"active": false
+				"active": true
 			}
 		]
 	},
@@ -116,20 +108,12 @@
 		],
 		"design": [
 			{
-				"title": "Регистрация на Eventloop",
-				"active": false
-			},
-			{
-				"title": "Согласование с начальством",
-				"active": false
-			},
-			{
 				"title": "Оформление документов",
-				"active": false
+				"active": true
 			},
 			{
 				"title": "Оплата",
-				"active": false
+				"active": true
 			}
 		]
 	},
@@ -189,20 +173,12 @@
 		],
 		"design": [
 			{
-				"title": "Регистрация на Eventloop",
-				"active": false
-			},
-			{
-				"title": "Согласование с начальством",
-				"active": false
-			},
-			{
 				"title": "Оформление документов",
-				"active": false
+				"active": true
 			},
 			{
 				"title": "Оплата",
-				"active": false
+				"active": true
 			}
 		]
 	}

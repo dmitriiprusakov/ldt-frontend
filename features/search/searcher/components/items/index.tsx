@@ -19,8 +19,8 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 	}, [currentFilters]);
 
 	const fetchData = async ({ search, capacity, area, chairs, tables, timeRange }: PlaceFilters) => {
-		const from_ts = timeRange?.at(0)?.toISOString();
-		const to_ts = timeRange?.at(-1)?.toISOString();
+		const from_ts = timeRange?.at(0);
+		const to_ts = timeRange?.at(-1);
 
 		const { data: seacrhData } = await eventsFetcher.post<JsonRpcBody<SearchResult>>(
 			"/",
@@ -55,7 +55,7 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 
 	return (
 		<div className={css.items}>
-			{items.map(({ id, title, description, photo, price }) => (
+			{items.map(({ id, title, description, photo, price, type }) => (
 				<Link
 					href={`/search/${id}`}
 					key={id}
@@ -64,7 +64,7 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 						className={css.card}
 						hoverable
 						actions={[
-							<Button key={"add"} onClick={(e) => handleChose(e, { id, title, photo, price })}>
+							<Button key={"add"} onClick={(e) => handleChose(e, { id, type, title, photo, price })}>
 								Выбрать
 							</Button>,
 							<Button key={"save"} >

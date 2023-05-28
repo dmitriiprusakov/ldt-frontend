@@ -1,7 +1,6 @@
 .content {
     position: sticky;
     top: 0;
-    padding: 1rem;
 }
 
 .checkboxGroup :global(.ant-divider):first-child {
@@ -16,4 +15,8 @@
 
 .item :global(.ant-card) {
     margin: 0.5rem 0;
+}
+
+.submit {
+    margin-top: 1rem;
 }

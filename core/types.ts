@@ -53,11 +53,12 @@ export type Equipment = {
 	}
 }
 
-export type SearchItemShort = Pick<SearchItem, "id" | "title" | "photo" | "price">
+export type SearchItemShort = Pick<SearchItem, "id" | "type" | "title" | "photo" | "price">
 
 export type SearchItem = {
 	id: number;
 	title: string;
+	type: string;
 	description: string;
 	address: string;
 	phone: string;
@@ -75,6 +76,27 @@ export type SearchResult = {
 	total: number;
 	props: string[];
 	items: SearchItem[];
+}
+
+export type ServiceSearchItemShort = Pick<
+	ServiceSearchItem,
+	"id" | "type" | "title" | "images" | "min_price" | "max_price"
+>
+
+export type ServiceSearchItem = {
+	id: number;
+	created_at: string;
+	updated_at: string;
+	type: string;
+	title: string;
+	images: string[];
+	min_price: number;
+	max_price: number;
+}
+
+export type ServicesSearchResult = {
+	next_page_key: number;
+	items: ServiceSearchItem[];
 }
 
 export type Vendor = {
@@ -153,5 +175,5 @@ export type PlaceFilters = {
 	capacity?: string;
 	chairs?: boolean;
 	tables?: boolean;
-	timeRange?: [Dayjs, Dayjs];
+	timeRange?: [string, string];
 }

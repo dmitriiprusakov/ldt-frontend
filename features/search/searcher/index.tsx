@@ -3,18 +3,43 @@
 import React, { FC, useCallback, useState } from "react";
 
 import css from "./index.module.css";
-import { Filters, Items, Sidebar } from "./components";
+import { Filters, Items, ServicesItems, Sidebar } from "./components";
 import store from "store";
 import { Provider } from "react-redux";
-import { SearchItemShort } from "core/types";
+import { SearchItemShort, ServiceSearchItemShort } from "core/types";
+import { Select } from "antd";
 
 const Searcher: FC = () => {
-	const [event, setEvent] = useState<Record<string, SearchItemShort>>({});
+	const [event, setEvent] = useState<Record<string, SearchItemShort | ServiceSearchItemShort>>({});
+	const [serviceType, setServiceType] = useState<string>("PLACE");
 
-	const addEventCallback = useCallback((eventShortCut: SearchItemShort) => {
-		console.log("addEventCallback=", eventShortCut);
-		setEvent((prev) => ({ ...prev, PLACE: eventShortCut }));
+	const addEventCallback = useCallback((eventShortCut: SearchItemShort | ServiceSearchItemShort) => {
+		const { type, ...restEvent } = eventShortCut;
+		console.log("addEventCallback=", type, restEvent);
+		setEvent((prev) => ({ ...prev, [type]: eventShortCut }));
 	}, []);
+
+	const changeServiceType = (value: string) => {
+		setServiceType(value);
+	};
+
+	const ServicesComponent = () => {
+		if (serviceType === "PLACE") return (
+			<>
+				<Filters />
+				<Items
+					addEventCallback={addEventCallback}
+				/>
+			</>
+		);
+		if (serviceType === "FLOWERS" || serviceType === "CATERING") return (
+			<ServicesItems
+				serviceType={serviceType}
+				addEventCallback={addEventCallback}
+			/>
+		);
+		return null;
+	};
 
 	return (
 		<section>
@@ -27,11 +52,20 @@ const Searcher: FC = () => {
 					</aside>
 
 					<div className={css.main}>
-						<Filters />
-						<Items
-							addEventCallback={addEventCallback}
-
+						<Select
+							style={{ width: "100%", marginBottom: "1rem" }}
+							onChange={changeServiceType}
+							value={serviceType}
+							options={[
+								{ value: "PLACE", label: "Аренда площадки" },
+								{ value: "FLOWERS", label: "Цветы и оформление" },
+								{ value: "CATERING", label: "Фуршет" },
+								{ value: "SECURITY", label: "Охрана", disabled: true },
+							]}
 						/>
+						<>
+							{ServicesComponent()}
+						</>
 					</div>
 				</Provider>
 			</div>
