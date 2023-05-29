@@ -40,6 +40,11 @@ export default function NewService() {
 
 		if (!session) return;
 
+		const isImage = photo.type.includes("image/");
+		if (!isImage) {
+			return void message.error("Можно загрузить только JPG/PNG!");
+		}
+
 		const form = new FormData();
 
 		form.append("photo", photo);
@@ -75,7 +80,7 @@ export default function NewService() {
 		void message.success("Заявка отправлена на модерацию");
 
 		setTimeout(() => {
-			router.push("/");
+			router.push("/me");
 		}, 3000);
 	};
 
@@ -89,6 +94,14 @@ export default function NewService() {
 			return e;
 		}
 		return e?.file;
+	};
+
+	const beforeUpload = (file: File) => {
+		const isImage = file.type.includes("image/");
+		if (!isImage) {
+			return void message.error("Можно загрузить только JPG/PNG!");
+		}
+		return false;
 	};
 
 	return (
@@ -105,12 +118,34 @@ export default function NewService() {
 							name="photo"
 							valuePropName="file"
 							getValueFromEvent={normFile}
-							rules={[{ required: true, message: "Обязательное поле" }]}
+							rules={[
+								{
+									required: true,
+									message: "Обязательное поле",
+								},
+								{
+									required: true,
+									validator: (_, value: File) => {
+										const isImage = value.type.includes("image/");
+										if (!isImage) {
+											return Promise.reject(new Error("Можно загрузить только JPG/PNG!"));
+										}
+										return Promise.resolve();
+									},
+								},
+							]}
 						>
 							<Upload
-								beforeUpload={() => false}
+								className={css.upload}
+								accept="image/*"
+								beforeUpload={beforeUpload}
 								maxCount={1}
 								listType="picture-card"
+								onPreview={() => false}
+								showUploadList={{
+									showPreviewIcon: false,
+									showDownloadIcon: false,
+								}}
 							>
 								<UploadOutlined />
 							</Upload>
@@ -118,7 +153,10 @@ export default function NewService() {
 						<Form.Item
 							label="Название"
 							name="title"
-							rules={[{ required: true, message: "Обязательное поле" }]}
+							rules={[{
+								required: true,
+								message: "Обязательное поле",
+							}]}
 						>
 							<Input />
 						</Form.Item>
@@ -126,7 +164,10 @@ export default function NewService() {
 						<Form.Item
 							label="Адрес"
 							name="address"
-							rules={[{ required: true, message: "Обязательное поле" }]}
+							rules={[{
+								required: true,
+								message: "Обязательное поле",
+							}]}
 						>
 							<Input />
 						</Form.Item>
@@ -134,7 +175,10 @@ export default function NewService() {
 						<Form.Item
 							label="Телефон"
 							name="phone"
-							rules={[{ required: true, message: "Обязательное поле" }]}
+							rules={[{
+								required: true,
+								message: "Обязательное поле",
+							}]}
 						>
 							<Input />
 						</Form.Item>

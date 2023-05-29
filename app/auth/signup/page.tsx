@@ -82,7 +82,10 @@ export default function SignUpPage() {
 					<Form.Item
 						label="Имя"
 						name="fio"
-						rules={[{ required: true, message: "Обязательное поле" }]}
+						rules={[{
+							required: true,
+							message: "Обязательное поле",
+						}]}
 					>
 						<Input />
 					</Form.Item>
@@ -90,7 +93,13 @@ export default function SignUpPage() {
 					<Form.Item
 						label="E-mail"
 						name="email"
-						rules={[{ required: true, message: "Обязательное поле" }]}
+						rules={[{
+							required: true,
+							message: "Обязательное поле",
+						}, {
+							message: "Не похоже на e-mail",
+							type: "email",
+						}]}
 					>
 						<Input />
 					</Form.Item>

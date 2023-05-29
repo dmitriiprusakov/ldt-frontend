@@ -10,6 +10,11 @@ import css from "./index.module.css";
 export const metadata = {
 	title: "EventLoop",
 	description: "Сервис для создания мероприятий",
+	viewport: {
+		width: "device-width",
+		initialScale: 1,
+		maximumScale: 1,
+	},
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

@@ -12,7 +12,10 @@ const Profile: FC = () => {
 	};
 
 	const handleSignOut = () => {
-		void signOut();
+		void signOut({
+			redirect: true,
+			callbackUrl: "/",
+		});
 	};
 
 	if (status === "loading") return (

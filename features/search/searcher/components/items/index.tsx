@@ -34,8 +34,8 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 				props: {
 					"вместимость": capacity,
 					"площадь": area,
-					"стулья": chairs,
-					"столы": tables,
+					"стулья": chairs || undefined,
+					"столы": tables || undefined,
 				},
 			}
 		);
@@ -54,7 +54,7 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 		addEventCallback(item);
 	};
 
-	const handleClick = (event: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent> | MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+	const handleAddToFavourites = (event: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent> | MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
 		event.preventDefault();
 	};
 
@@ -69,10 +69,17 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 						className={css.card}
 						hoverable
 						actions={[
-							<Button key={"add"} type={"primary"} onClick={(e) => handleChose(e, { id, type, title, photo, price })}>
+							<Button
+								key={"add"}
+								type={"primary"}
+								onClick={(e) => handleChose(e, { id, type, title, photo, price })}
+							>
 								Выбрать
 							</Button>,
-							<Button key={"save"} onClick={handleClick}>
+							<Button
+								key={"save"}
+								onClick={handleAddToFavourites}
+							>
 								В избранное
 							</Button>,
 						]}

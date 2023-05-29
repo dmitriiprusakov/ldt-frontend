@@ -53,6 +53,7 @@ const ServicesItems: FC<Props> = ({ serviceType, addEventCallback }: Props) => {
 					actions={[
 						<Button
 							key={"add"}
+							type={"primary"}
 							onClick={(e) => handleChose(e, {
 								id,
 								type,

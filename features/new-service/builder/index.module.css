@@ -22,3 +22,7 @@
 .inputNumber {
     width: 100%;
 }
+
+.upload :global(.ant-tooltip) {
+    display: none;
+}

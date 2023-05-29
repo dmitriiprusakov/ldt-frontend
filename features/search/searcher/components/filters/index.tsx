@@ -100,10 +100,18 @@ const Filters: FC = () => {
 					</Form.Item>
 				</div>
 				<div className={css.row2}>
-					<Form.Item name="chairs" label="Стулья" valuePropName="checked">
+					<Form.Item
+						name="chairs"
+						label="Стулья"
+						valuePropName="checked"
+					>
 						<Switch />
 					</Form.Item>
-					<Form.Item name="tables" label="Столы" valuePropName="checked">
+					<Form.Item
+						name="tables"
+						label="Столы"
+						valuePropName="checked"
+					>
 						<Switch />
 					</Form.Item>
 				</div>
