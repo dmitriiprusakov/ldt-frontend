@@ -71,6 +71,7 @@ const Controls: FC<Props> = ({
 				>
 					<RangePicker
 						format={"DD.MM.YYYY"}
+						placeholder={["", ""]}
 						className={css.rangePicker}
 					/>
 				</Form.Item>

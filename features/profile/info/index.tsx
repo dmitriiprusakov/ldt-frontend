@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 "use client";
 
-import { Avatar, Card, List } from "antd";
+import { Avatar, Card, List, Typography } from "antd";
 import { eventsFetcher } from "core/fetchers";
 import ThemeProvider from "core/theme";
 import { Event, EventsResult, JsonRpcBody, User } from "core/types";
@@ -62,7 +62,9 @@ export default function ProfileInfo() {
 						extra={
 							user?.admin && (
 								<Link href={"/admin"}>
-									К панели администратора
+									<Typography.Title level={2}>
+										К панели администратора
+									</Typography.Title>
 								</Link>
 							)
 						}

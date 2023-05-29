@@ -74,9 +74,9 @@ export default function NewService() {
 
 		void message.success("Заявка отправлена на модерацию");
 
-		// setTimeout(() => {
-		// 	router.push("/");
-		// }, 3000);
+		setTimeout(() => {
+			router.push("/");
+		}, 3000);
 	};
 
 	const onFinish = (values: FormValues) => {

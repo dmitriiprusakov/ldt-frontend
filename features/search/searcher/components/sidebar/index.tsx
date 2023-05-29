@@ -13,6 +13,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import css from "./index.module.css";
 import { FileProtectOutlined, SmileOutlined } from "@ant-design/icons";
 
+const dict: Record<string, string> = {
+	"hackathon": "Проведение хакатона",
+	"album-recording": "Запись альбома",
+	"art-exhibition": "Выставка картин",
+};
+
 type Props = {
 	event: Record<string, SearchItemShort | ServiceSearchItemShort>;
 }
@@ -71,9 +77,15 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 
 	const eventKeys = Object.keys(event);
 
+	console.log(eventKeys, event);
+
 	return (
 		<div className={css.content}>
-			<h3>Выбранные услуги:</h3>
+			{eventType ? (
+				<h3>{dict[eventType]}:</h3>
+			) : (
+				<h3>Выбранные услуги:</h3>
+			)}
 
 			{currentChecklist ? (
 				<Checkbox.Group
@@ -109,7 +121,7 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 
 					<Divider orientation="left">Оформление</Divider>
 
-					<div className={css.group}>
+					{/* <div className={css.group}>
 						{currentChecklist.design.map(({ title, active, type }) => (
 							<Checkbox
 								key={type ?? title}
@@ -119,7 +131,7 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 								{title}
 							</Checkbox>
 						))}
-					</div>
+					</div> */}
 				</Checkbox.Group>
 			) : (
 				Object.keys(event).map(type => {
@@ -176,7 +188,7 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 				</Form>
 			) : (
 				<Typography.Text type="secondary">
-					Пока пусто
+					Начните выбирать услуги
 				</Typography.Text>
 			)}
 		</div>
