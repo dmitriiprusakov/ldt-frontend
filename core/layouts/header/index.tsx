@@ -1,5 +1,5 @@
 import { AuthProvider } from "core/auth";
-import { LogoSvg } from "core/icons";
+import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import { Profile } from "./components";
@@ -11,7 +11,13 @@ const Header: FC = () => {
 		<header className={css.header}>
 			<nav className={css.content}>
 				<Link href="/" className={css.logoLink}>
-					{LogoSvg()}
+					<Image
+						src={"/Logo.png"}
+						width={90}
+						height={70}
+						aria-hidden="true"
+						alt="EventLoop"
+					/>
 				</Link>
 				<ul className={css.links}>
 					<li>

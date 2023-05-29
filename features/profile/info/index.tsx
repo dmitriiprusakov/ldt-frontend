@@ -62,9 +62,9 @@ export default function ProfileInfo() {
 						extra={
 							user?.admin && (
 								<Link href={"/admin"}>
-									<Typography.Title level={2}>
-										К панели администратора
-									</Typography.Title>
+									<Typography.Link style={{ fontSize: "2rem" }}>
+										Перейти панели администратора
+									</Typography.Link>
 								</Link>
 							)
 						}
