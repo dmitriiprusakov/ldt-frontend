@@ -6,7 +6,7 @@ import { eventsFetcher } from "core/fetchers";
 import { JsonRpcBody, SearchItemShort, ServiceSearchItemShort } from "core/types";
 import dayjs from "dayjs";
 import { getSession, signIn } from "next-auth/react";
-import React, { FC } from "react";
+import React, { FC, memo, MouseEvent } from "react";
 import { useAppSelector } from "store";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -21,8 +21,9 @@ const dict: Record<string, string> = {
 
 type Props = {
 	event: Record<string, SearchItemShort | ServiceSearchItemShort>;
+	changeServiceType: (type: string) => void;
 }
-const Sidebar: FC<Props> = ({ event }: Props) => {
+const Sidebar: FC<Props> = ({ event, changeServiceType }: Props) => {
 	const checklistsData = useAppSelector((state) => state.core.checklistsData);
 	const searchParams = useSearchParams();
 	const router = useRouter();
@@ -75,6 +76,14 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 		void createEvent(event);
 	};
 
+	const handleChangeType = (
+		e: MouseEvent<HTMLDivElement, globalThis.MouseEvent> | MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
+		type: string | undefined
+	) => {
+		e.preventDefault();
+		type && changeServiceType(type);
+	};
+
 	const eventKeys = Object.keys(event);
 
 	console.log(eventKeys, event);
@@ -96,7 +105,11 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 
 					<div className={css.group}>
 						{currentChecklist.recommendations.map(({ title, active, type }) => (
-							<div key={type ?? title} className={css.item}>
+							<div
+								key={type ?? title}
+								onClick={(e) => handleChangeType(e, type)}
+								className={css.item}
+							>
 								<Checkbox
 									key={type ?? title}
 									value={type}
@@ -195,4 +208,4 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 	);
 };
 
-export default Sidebar;
+export default memo(Sidebar);

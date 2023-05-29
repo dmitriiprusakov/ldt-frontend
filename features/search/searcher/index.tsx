@@ -20,9 +20,9 @@ const Searcher: FC = () => {
 		setEvent((prev) => ({ ...prev, [type]: eventShortCut }));
 	}, []);
 
-	const changeServiceType = (value: string) => {
+	const changeServiceType = useCallback((value: string) => {
 		setServiceType(value);
-	};
+	}, []);
 
 	const ServicesComponent = () => {
 		if (serviceType === "PLACE") return (
@@ -49,6 +49,7 @@ const Searcher: FC = () => {
 					<ThemeProvider>
 						<aside className={css.aside}>
 							<Sidebar
+								changeServiceType={changeServiceType}
 								event={event}
 							/>
 						</aside>

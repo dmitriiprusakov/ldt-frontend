@@ -21,6 +21,10 @@
     width: 100%;
 }
 
+.item {
+    cursor: pointer;
+}
+
 .item :global(.ant-card) {
     margin: 0.5rem 0;
 }
