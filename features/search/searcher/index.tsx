@@ -7,7 +7,7 @@ import { Filters, Items, ServicesItems, Sidebar } from "./components";
 import store from "store";
 import { Provider } from "react-redux";
 import { SearchItemShort, ServiceSearchItemShort } from "core/types";
-import { Select } from "antd";
+import { Form, Select } from "antd";
 import ThemeProvider from "core/theme";
 
 const Searcher: FC = () => {
@@ -54,17 +54,21 @@ const Searcher: FC = () => {
 						</aside>
 
 						<div className={css.main}>
-							<Select
-								style={{ width: "100%", marginBottom: "1rem" }}
-								onChange={changeServiceType}
-								value={serviceType}
-								options={[
-									{ value: "PLACE", label: "Аренда площадки" },
-									{ value: "FLOWERS", label: "Цветы и оформление" },
-									{ value: "CATERING", label: "Фуршет" },
-									{ value: "SECURITY", label: "Охрана", disabled: true },
-								]}
-							/>
+							<Form layout="vertical">
+								<Form.Item label="Выберите тип мероприятия">
+									<Select
+										style={{ width: "100%", marginBottom: "1rem" }}
+										onChange={changeServiceType}
+										value={serviceType}
+										options={[
+											{ value: "PLACE", label: "Аренда площадки" },
+											{ value: "FLOWERS", label: "Цветы и оформление" },
+											{ value: "CATERING", label: "Фуршет" },
+											{ value: "SECURITY", label: "Охрана", disabled: true },
+										]}
+									/>
+								</Form.Item>
+							</Form>
 							<>
 								{ServicesComponent()}
 							</>

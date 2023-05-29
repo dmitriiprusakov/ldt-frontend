@@ -3,6 +3,14 @@
     top: 0;
 }
 
+.content h3 {
+    margin: 2rem 0;
+}
+
+.content :global(.ant-empty) {
+    margin: 0;
+}
+
 .checkboxGroup :global(.ant-divider):first-child {
     margin-top: 0;
 }

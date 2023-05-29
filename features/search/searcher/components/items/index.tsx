@@ -1,6 +1,7 @@
 import { Button, Card } from "antd";
 import { eventsFetcher } from "core/fetchers";
 import { JsonRpcBody, PlaceFilters, SearchItem, SearchItemShort, SearchResult } from "core/types";
+import Image from "next/image";
 import Link from "next/link";
 import React, { FC, MouseEvent, useEffect, useState } from "react";
 import { useAppSelector } from "store";
@@ -26,7 +27,7 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 			"/",
 			{
 				method: "search_places",
-				limit: 10,
+				limit: 30,
 				query: search || undefined,
 				from_ts: from_ts,
 				to_ts: to_ts,
@@ -53,6 +54,10 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 		addEventCallback(item);
 	};
 
+	const handleClick = (event: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent> | MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+		event.preventDefault();
+	};
+
 	return (
 		<div className={css.items}>
 			{items.map(({ id, title, description, photo, price, type }) => (
@@ -64,19 +69,21 @@ const Items: FC<Props> = ({ addEventCallback }: Props) => {
 						className={css.card}
 						hoverable
 						actions={[
-							<Button key={"add"} onClick={(e) => handleChose(e, { id, type, title, photo, price })}>
+							<Button key={"add"} type={"primary"} onClick={(e) => handleChose(e, { id, type, title, photo, price })}>
 								Выбрать
 							</Button>,
-							<Button key={"save"} >
+							<Button key={"save"} onClick={handleClick}>
 								В избранное
 							</Button>,
 						]}
 						title={title}
 						extra={<b>{`${price} ₽`}</b>}
 						cover={
-							<img
+							<Image
+								fill
 								loading="lazy"
-								alt="example"
+								aria-hidden="true"
+								alt="Фото объекта"
 								src={photo}
 							/>
 						}

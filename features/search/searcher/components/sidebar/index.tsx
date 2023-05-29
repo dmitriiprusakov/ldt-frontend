@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Avatar, Button, Card, Checkbox, Divider } from "antd";
+import { Avatar, Button, Card, Checkbox, Divider, Empty, Form, Typography } from "antd";
 import { eventsFetcher } from "core/fetchers";
 import { JsonRpcBody, SearchItemShort, ServiceSearchItemShort } from "core/types";
 import dayjs from "dayjs";
-import { getSession } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import React, { FC } from "react";
 import { useAppSelector } from "store";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import css from "./index.module.css";
+import { FileProtectOutlined, SmileOutlined } from "@ant-design/icons";
 
 type Props = {
 	event: Record<string, SearchItemShort | ServiceSearchItemShort>;
@@ -26,7 +27,7 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 	const createEvent = async (event: Record<string, SearchItemShort | ServiceSearchItemShort>) => {
 		const session = await getSession();
 
-		if (!session?.user) return;
+		if (!session?.user) return signIn();
 
 		const from_ts = dayjs().toISOString();
 		const to_ts = dayjs().toISOString();
@@ -68,16 +69,16 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 		void createEvent(event);
 	};
 
-	const checklistValue = Object.keys(event);
-
-	console.log(event);
+	const eventKeys = Object.keys(event);
 
 	return (
 		<div className={css.content}>
+			<h3>Выбранные услуги:</h3>
+
 			{currentChecklist ? (
 				<Checkbox.Group
 					className={css.checkboxGroup}
-					value={checklistValue}
+					value={eventKeys}
 				>
 					<Divider orientation="left">Организация</Divider>
 
@@ -112,7 +113,7 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 						{currentChecklist.design.map(({ title, active, type }) => (
 							<Checkbox
 								key={type ?? title}
-								value={type}
+								checked={!!type}
 								disabled={!active}
 							>
 								{title}
@@ -137,9 +138,47 @@ const Sidebar: FC<Props> = ({ event }: Props) => {
 				})
 			)}
 
-			<Button className={css.submit} type="primary" onClick={handleSubmit}>
-				Создать мероприятие
-			</Button>
+			{eventKeys.length > 0 ? (
+				<Form onFinish={handleSubmit}>
+					<Form.Item
+						name="payment"
+						valuePropName="checked"
+						noStyle
+					>
+						<Checkbox disabled checked>
+							Оплата
+						</Checkbox>
+					</Form.Item>
+
+					<Form.Item
+						name="offer"
+						valuePropName="checked"
+						rules={[{
+							required: true,
+							message: "Примите условия оферты?",
+							validator: (_, value) =>
+								value ? Promise.resolve() : Promise.reject(new Error("Примите условия оферты?")),
+						}]}
+					>
+						<Checkbox>
+							Принимаю {" "}
+							<Typography.Link href="/docs/offer.pdf" target="_blank">
+								оферту
+							</Typography.Link>
+						</Checkbox>
+					</Form.Item>
+
+					<Form.Item>
+						<Button className={css.submit} type="primary" htmlType="submit">
+							Создать мероприятие
+						</Button>
+					</Form.Item>
+				</Form>
+			) : (
+				<Typography.Text type="secondary">
+					Пока пусто
+				</Typography.Text>
+			)}
 		</div>
 	);
 };

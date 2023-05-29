@@ -4,6 +4,7 @@ import { Button, Form, Input } from "antd";
 import ThemeProvider from "core/theme";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 import css from "./page.module.css";
 
@@ -13,15 +14,18 @@ type FormFields = {
 }
 
 export default function SignInPage() {
+	const search = useSearchParams();
 
 	const onFinish = ({ email, password }: FormFields) => {
-		console.log("Success:", { email, password });
+
+		const callbackUrl = search.get("callbackUrl");
+		console.log("Success:", { email, password, callbackUrl });
 
 		signIn("credentials", {
 			email: email,
 			password: password,
 			redirect: true,
-			callbackUrl: "/",
+			callbackUrl: callbackUrl || "/",
 		}).then(result => {
 			console.log("result:", result);
 		}).catch(error => {

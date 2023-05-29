@@ -1,7 +1,7 @@
 import { Button, DatePicker, Form, Input, Slider, Switch } from "antd";
 import { setFilters } from "core/redux/slice";
 import { PlaceFilters } from "core/types";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useSearchParams } from "next/navigation";
 import React, { FC, useEffect, useMemo } from "react";
 import { useAppDispatch } from "store";
@@ -46,25 +46,28 @@ const Filters: FC = () => {
 						name="search"
 						label="Поиск"
 					>
-						<Input />
-					</Form.Item>
-					<Form.Item
-						name="timeRange"
-						label="Промежуток"
-						rules={[{ type: "array" as const }]}
-
-					>
-						<RangePicker
-							format={"DD.MM.YYYY"}
-						/>
+						<Input allowClear />
 					</Form.Item>
 					<Form.Item label=" ">
-						<Button type="primary" htmlType="submit">
+						<Button type="primary" block htmlType="submit">
 							Найти
 						</Button>
 					</Form.Item>
 				</div>
-				<div className={css.row}>
+				<div className={css.row1}>
+					<Form.Item
+						name="timeRange"
+						label="Временной промежуток"
+						rules={[{ type: "array" as const }]}
+					>
+						<RangePicker
+							style={{ width: "100%" }}
+							placeholder={["", ""]}
+							format={"DD.MM.YYYY"}
+						/>
+					</Form.Item>
+				</div>
+				<div className={css.row2}>
 					<Form.Item
 						name="area"
 						label="Площадь"
@@ -73,9 +76,9 @@ const Filters: FC = () => {
 							range={{ draggableTrack: true }}
 							marks={{
 								0: "0",
-								10: "20",
-								25: "40",
-								50: "60",
+								10: "10",
+								25: "25",
+								50: "50",
 								100: "100",
 							}}
 						/>
@@ -88,13 +91,15 @@ const Filters: FC = () => {
 							range={{ draggableTrack: true }}
 							marks={{
 								0: "0",
-								10: "20",
-								25: "40",
-								50: "60",
+								10: "10",
+								25: "25",
+								50: "50",
 								100: "100",
 							}}
 						/>
 					</Form.Item>
+				</div>
+				<div className={css.row2}>
 					<Form.Item name="chairs" label="Стулья" valuePropName="checked">
 						<Switch />
 					</Form.Item>
