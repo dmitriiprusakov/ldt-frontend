@@ -45,4 +45,11 @@ const ratingFetcher = axios.create({
 	transformResponse: transformResponse,
 });
 
-export { passportFetcher, eventsFetcher, ratingFetcher };
+const imagesFetcher = axios.create({
+	baseURL: "https://images.lct23.dev.40ants.com/upload",
+	headers: {
+		"Content-Type": "multipart/form-data",
+	},
+});
+
+export { passportFetcher, eventsFetcher, ratingFetcher, imagesFetcher };

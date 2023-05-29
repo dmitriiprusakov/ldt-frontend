@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 "use client";
 
-import { InboxOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Form, Input, InputNumber, message, Upload } from "antd";
 
-import { eventsFetcher } from "core/fetchers";
+import { eventsFetcher, imagesFetcher } from "core/fetchers";
 import ThemeProvider from "core/theme";
 import { JsonRpcBody } from "core/types";
 import { getSession } from "next-auth/react";
@@ -18,17 +18,38 @@ type FormValues = {
 	description: string,
 	address: string,
 	phone: string,
+	price: number;
+	photo: File;
 }
 
+type ImageResult = {
+	photo: {
+		id: string;
+		url: string;
+	}
+}
 //accessToken положить в куки чтобы попала на бэк
 export default function NewService() {
 	const router = useRouter();
 
-	const addService = async ({ title, address, description, phone }: FormValues) => {
+	const addService = async ({
+		title, address, description, phone, photo, price,
+	}: FormValues) => {
 		const session = await getSession();
 		console.log("session", session);
 
 		if (!session) return;
+
+		const form = new FormData();
+
+		form.append("photo", photo);
+
+		const { data: imageData } = await imagesFetcher.post<ImageResult>(
+			"/",
+			form
+		);
+
+		console.log("imageData=", imageData);
 
 		const { data: addPlaceData } = await eventsFetcher.post<JsonRpcBody<any>>(
 			"/",
@@ -38,6 +59,8 @@ export default function NewService() {
 				address,
 				description,
 				phone,
+				price,
+				photo_url: imageData.photo.url,
 			},
 			{
 				headers: {
@@ -45,16 +68,15 @@ export default function NewService() {
 				},
 			}
 		);
-		console.log(addPlaceData);
+		console.log("addPlaceData=", addPlaceData);
 
 		if (addPlaceData.error || !addPlaceData.result) return;
 
 		void message.success("Заявка отправлена на модерацию");
 
-		setTimeout(() => {
-			router.push("/");
-		}, 3000);
-
+		// setTimeout(() => {
+		// 	router.push("/");
+		// }, 3000);
 	};
 
 	const onFinish = (values: FormValues) => {
@@ -63,11 +85,10 @@ export default function NewService() {
 	};
 
 	const normFile = (e: any) => {
-		console.log("Upload event:", e);
 		if (Array.isArray(e)) {
 			return e;
 		}
-		return e?.fileList;
+		return e?.file;
 	};
 
 	return (
@@ -80,18 +101,19 @@ export default function NewService() {
 						onFinish={onFinish}
 					>
 						<Form.Item
-							noStyle
-							name="image"
-							valuePropName="fileList"
+							label="Превью фото"
+							name="photo"
+							valuePropName="file"
 							getValueFromEvent={normFile}
+							rules={[{ required: true, message: "Обязательное поле" }]}
 						>
-							<Upload.Dragger name="files" beforeUpload={() => false}>
-								<p className="ant-upload-drag-icon">
-									<InboxOutlined />
-								</p>
-								<p className="ant-upload-text">Click or drag file to this area to upload</p>
-								<p className="ant-upload-hint">Support for a single or bulk upload.</p>
-							</Upload.Dragger>
+							<Upload
+								beforeUpload={() => false}
+								maxCount={1}
+								listType="picture-card"
+							>
+								<UploadOutlined />
+							</Upload>
 						</Form.Item>
 						<Form.Item
 							label="Название"
@@ -104,7 +126,7 @@ export default function NewService() {
 						<Form.Item
 							label="Адрес"
 							name="address"
-						// rules={[{ required: true, message: "Обязательное поле" }]}
+							rules={[{ required: true, message: "Обязательное поле" }]}
 						>
 							<Input />
 						</Form.Item>
@@ -112,7 +134,7 @@ export default function NewService() {
 						<Form.Item
 							label="Телефон"
 							name="phone"
-						// rules={[{ required: true, message: "Обязательное поле" }]}
+							rules={[{ required: true, message: "Обязательное поле" }]}
 						>
 							<Input />
 						</Form.Item>
@@ -120,13 +142,26 @@ export default function NewService() {
 						<Form.Item
 							label="Описание"
 							name="description"
-
+							rules={[{ required: true, message: "Обязательное поле" }]}
 						>
 							<Input.TextArea
 								rows={4}
 								maxLength={500}
 								showCount
 								allowClear
+							/>
+						</Form.Item>
+						<Form.Item
+							label="Цена аренды"
+							name="price"
+							rules={[{ required: true, message: "Обязательное поле" }]}
+						>
+							<InputNumber
+								addonAfter="₽ / час"
+								step={1000}
+								min={0}
+								max={100000}
+								className={css.inputNumber}
 							/>
 						</Form.Item>
 
