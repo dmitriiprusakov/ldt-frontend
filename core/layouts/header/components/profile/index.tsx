@@ -2,10 +2,10 @@
 
 import React, { FC } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Button } from "antd";
+import Link from "next/link";
 
 const Profile: FC = () => {
-	const { data, status } = useSession();
+	const { status } = useSession();
 
 	const handleSignIn = () => {
 		void signIn();
@@ -15,18 +15,29 @@ const Profile: FC = () => {
 		void signOut();
 	};
 
-	if (status === "loading") return null;
+	if (status === "loading") return (
+		<Link href="/me">
+			Личный кабинет
+		</Link>
+	);
 
 	if (status === "authenticated") return (
-		<Button onClick={handleSignOut}>
-			SignOUT
-		</Button>
+		<>
+			<Link href="/me">
+				Личный кабинет
+			</Link>
+			<span style={{ marginLeft: "1rem" }} onClick={handleSignOut}>
+				Выйти
+			</span>
+		</>
 	);
 
 	return (
-		<Button onClick={handleSignIn}>
-			SignIN
-		</Button>
+		<>
+			<span onClick={handleSignIn}>
+				Войти
+			</span>
+		</>
 	);
 };
 

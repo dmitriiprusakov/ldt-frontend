@@ -30,15 +30,12 @@ const Header: FC = () => {
 						</Link>
 					</li>
 					<li>
-						<Link href="/me">
-							Личный кабинет
-						</Link>
+						<AuthProvider>
+							<Profile />
+						</AuthProvider>
 					</li>
 				</ul>
 
-				{/* <AuthProvider>
-					<Profile />
-				</AuthProvider> */}
 			</nav>
 		</header>
 	);

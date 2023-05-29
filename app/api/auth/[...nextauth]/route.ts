@@ -40,8 +40,6 @@ const NextAuthHandler = NextAuth({
 						}
 					);
 
-					console.log("loginData=", loginData.result);
-
 					if (loginData.error || !loginData.result) return null;
 
 					const { data: profileData } = await passportFetcher.post<JsonRpcBody<User>>(
@@ -49,8 +47,6 @@ const NextAuthHandler = NextAuth({
 						{ method: "my_profile" },
 						{ headers: { "Authorization": loginData.result } }
 					);
-
-					console.log("profileData=", profileData);
 
 					if (profileData.error || !profileData.result) return null;
 
