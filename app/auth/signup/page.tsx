@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 import css from "./page.module.css";
-import ThemeProvider from "core/theme";
+import AntdProvider from "core/theme";
 
 const { Option } = Select;
 
@@ -73,7 +73,7 @@ export default function SignUpPage() {
 
 	return (
 		<div className={css.signup}>
-			<ThemeProvider>
+			<AntdProvider>
 				<Form
 					layout="vertical"
 					onFinish={onFinish}
@@ -145,7 +145,7 @@ export default function SignUpPage() {
 					</Select>
 				</Form.Item> */}
 				</Form>
-			</ThemeProvider>
+			</AntdProvider>
 		</div>
 	);
 }

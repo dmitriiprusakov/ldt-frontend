@@ -6,7 +6,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, InputNumber, message, Upload } from "antd";
 
 import { eventsFetcher, imagesFetcher } from "core/fetchers";
-import ThemeProvider from "core/theme";
+import AntdProvider from "core/theme";
 import { JsonRpcBody } from "core/types";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -107,7 +107,7 @@ export default function NewService() {
 	return (
 		<section>
 			<div className={css.content}>
-				<ThemeProvider>
+				<AntdProvider>
 					<Form
 						layout="vertical"
 						name="basic"
@@ -215,7 +215,7 @@ export default function NewService() {
 							</Button>
 						</Form.Item>
 					</Form>
-				</ThemeProvider>
+				</AntdProvider>
 			</div>
 		</section>
 	);

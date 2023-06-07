@@ -5,7 +5,7 @@
 
 import { Avatar, Card, List, Typography } from "antd";
 import { eventsFetcher } from "core/fetchers";
-import ThemeProvider from "core/theme";
+import AntdProvider from "core/theme";
 import { Event, EventsResult, JsonRpcBody, User } from "core/types";
 import dayjs from "dayjs";
 import { getSession, useSession } from "next-auth/react";
@@ -55,7 +55,7 @@ export default function ProfileInfo() {
 	return (
 		<section>
 			<div className={css.content}>
-				<ThemeProvider>
+				<AntdProvider>
 					<Card
 						loading={status === "loading"}
 						title={user?.fio}
@@ -98,7 +98,7 @@ export default function ProfileInfo() {
 							/>
 						</Card>
 					))}
-				</ThemeProvider>
+				</AntdProvider>
 			</div>
 		</section>
 	);

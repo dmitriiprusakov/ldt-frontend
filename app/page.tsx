@@ -20,7 +20,7 @@ export default function RootPage() {
 	// const data = await getData();
 
 	return (
-		<div className={css.home}>
+		<>
 			<Header />
 			<Main >
 				<Hero />
@@ -63,6 +63,6 @@ export default function RootPage() {
 				<RecentEvents />
 			</Main>
 			<Footer />
-		</div>
+		</>
 	);
 }

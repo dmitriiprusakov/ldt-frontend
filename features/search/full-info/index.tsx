@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 
 import css from "./index.module.css";
 import { getSession } from "next-auth/react";
-import ThemeProvider from "core/theme";
+import AntdProvider from "core/theme";
 
 const { Item } = Descriptions;
 
@@ -105,7 +105,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 	return (
 		<section>
 			<div className={css.content}>
-				<ThemeProvider>
+				<AntdProvider>
 					<Card
 						className={css.card}
 						cover={
@@ -225,7 +225,7 @@ const FullInfo: FC<FullInfoProps> = ({ id }: FullInfoProps) => {
 							</List.Item>
 						)}
 					/>}
-				</ThemeProvider>
+				</AntdProvider>
 			</div>
 		</section>
 	);

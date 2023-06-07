@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Form, Input } from "antd";
-import ThemeProvider from "core/theme";
+import AntdProvider from "core/theme";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -35,7 +35,7 @@ export default function SignInPage() {
 
 	return (
 		<div className={css.signin}>
-			<ThemeProvider>
+			<AntdProvider>
 				<Form
 					layout="vertical"
 					onFinish={onFinish}
@@ -71,7 +71,7 @@ export default function SignInPage() {
 						</div>
 					</Form.Item>
 				</Form>
-			</ThemeProvider>
+			</AntdProvider>
 		</div>
 	);
 }

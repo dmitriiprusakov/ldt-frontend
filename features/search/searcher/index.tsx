@@ -8,7 +8,7 @@ import store from "store";
 import { Provider } from "react-redux";
 import { SearchItemShort, ServiceSearchItemShort } from "core/types";
 import { Form, Select } from "antd";
-import ThemeProvider from "core/theme";
+import AntdProvider from "core/theme";
 
 const Searcher: FC = () => {
 	const [event, setEvent] = useState<Record<string, SearchItemShort | ServiceSearchItemShort>>({});
@@ -46,7 +46,7 @@ const Searcher: FC = () => {
 		<section>
 			<div className={css.content}>
 				<Provider store={store}>
-					<ThemeProvider>
+					<AntdProvider>
 						<aside className={css.aside}>
 							<Sidebar
 								changeServiceType={changeServiceType}
@@ -74,7 +74,7 @@ const Searcher: FC = () => {
 								{ServicesComponent()}
 							</>
 						</div>
-					</ThemeProvider>
+					</AntdProvider>
 				</Provider>
 			</div>
 		</section>
