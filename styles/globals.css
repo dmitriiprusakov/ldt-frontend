@@ -29,9 +29,9 @@
 
 html,
 body {
+    height: 100%;
     max-width: 100vw;
     overflow-x: hidden;
-    position: relative;
 }
 
 body {

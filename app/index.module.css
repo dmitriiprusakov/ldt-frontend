@@ -1,38 +1,13 @@
 .layout {
     height: 100vh;
     width: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     /* height: auto; */
     overflow-y: auto;
     overflow-x: hidden;
 }
-
-.main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6rem;
-    min-height: 100vh;
-    color: var(--color-primary);
-    background: var(--primary-bg);
-}
-
-/* .home {
-    --color-primary: #ffffff;
-    --primary-bg: #0C1622;
-
-    color: var(--color-primary);
-    background: var(--primary-bg);
-    z-index: 1;
-    height: 100vh;
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-} */
 
 /* Mobile */
 @media (max-width: 700px) {
