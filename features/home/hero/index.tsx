@@ -10,7 +10,7 @@ import clsx from "clsx";
 
 const Hero: FC = () => {
 	return (
-		<section>
+		<section className={css.section}>
 			<div className={css.content}>
 				<div className={css.text}>
 					<h1>
