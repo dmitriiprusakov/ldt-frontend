@@ -6,7 +6,7 @@ const Hero: FC = () => {
 	return (
 		<section>
 			<div className={css.content}>
-				<h1>Мой аккаунт</h1>
+				<h1>Личный кабинет</h1>
 			</div>
 		</section>
 	);

@@ -17,6 +17,13 @@ const nextConfig = {
         port: '',
         pathname: '/get/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.cloudflare.steamstatic.com',
+        port: '',
+        pathname: '/**',
+      },
+      
     ],
   },
 }

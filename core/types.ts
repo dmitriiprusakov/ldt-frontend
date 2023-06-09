@@ -24,6 +24,7 @@ export type User = {
 	avatar_url: string;
 	admin: [];
 	vendor_id: [];
+	vendor?: any;
 	position: []
 }
 
@@ -194,4 +195,9 @@ export type Event = {
 	id: number,
 	title: string,
 	items: (SearchItem | ServiceSearchItem)[]
-} 
+}
+
+export type MyServicesResult = {
+	next_page_key: number;
+	items: Place[];
+}

@@ -10,7 +10,45 @@
     justify-content: center;
 }
 
-.content :global(.ant-card) {
+.personalInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.personalDescriptions {
+    margin-right: 2rem;
+}
+
+.personalInfo img {
+    min-width: 16rem;
+    min-height: 16rem;
+}
+
+.eventHistory {
     width: 100%;
-    margin-bottom: 1rem;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    margin-bottom: 3rem;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    line-height: 2rem;
+    width: 100%;
+    margin: 0 0 2rem;
+}
+
+.heading h2 {
+    margin-right: 2rem;
+}
+
+.servicesHistory {
+    width: 100%;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
