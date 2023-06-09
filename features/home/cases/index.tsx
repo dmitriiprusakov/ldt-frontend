@@ -63,6 +63,7 @@ const Cases: FC<Props> = ({
 					spotOnLeft ? css.spotLeft : css.spotRight
 				)}
 				src={spotOnLeft ? Spot3Pic : Spot4Pic}
+				loading="lazy"
 				aria-hidden="true"
 				alt="Красивые цветные пятна с оттенком розового"
 			/>

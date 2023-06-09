@@ -44,12 +44,14 @@ const Hero: FC = () => {
 			<Image
 				className={css.spot1}
 				src={Spot1Pic}
+				loading="lazy"
 				aria-hidden="true"
 				alt="Красивые цветные пятна с оттенком розового"
 			/>
 			<Image
 				className={css.spot2}
 				src={Spot2Pic}
+				loading="lazy"
 				aria-hidden="true"
 				alt="Красивые цветные пятна с оттенком розового"
 			/>
