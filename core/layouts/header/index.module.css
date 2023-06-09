@@ -13,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .logoLink {
@@ -24,12 +25,75 @@
 }
 
 .links {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    gap: 1rem;
+    display: none;
 }
 
 .links span:hover {
     cursor: pointer;
+}
+
+.burgerButton {
+    padding: 1rem;
+    z-index: 101;
+}
+
+.burgerButton input {
+    display: none;
+}
+
+.burgerButton label div {
+    border-bottom: 2px solid #fff;
+    border-top: 2px solid #fff;
+    height: 12px;
+    width: 30px;
+}
+
+.burgerMenu {
+    visibility: hidden;
+    background: url(/BurgerMenuBg.jpg) 50%/cover no-repeat;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    padding: 2.5rem var(--sides-padding);
+    background-color: var(--primary-bg);
+    transition: all 0.3s ease-in-out;
+}
+
+.burgerButton input:checked~.burgerMenu {
+    /* display: unset; */
+    visibility: visible;
+    opacity: 1;
+}
+
+.burgerLinks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+}
+
+.burgerLinks li {
+    margin-bottom: 2rem;
+}
+
+.burgerLinks li:last-child {
+    margin-bottom: 0;
+}
+
+/*Tablet and desktop styles*/
+@media (min-width: 481px) {
+    .burgerButton {
+        display: none;
+    }
+
+    .links {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        gap: 1rem;
+    }
 }

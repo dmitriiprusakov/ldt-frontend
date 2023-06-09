@@ -41,6 +41,36 @@ const Header: FC = () => {
 						</AuthProvider>
 					</li>
 				</ul>
+				<div className={css.burgerButton}>
+					<input type="checkbox" id="burgerTrigger" />
+					<label htmlFor="burgerTrigger">
+						<div />
+					</label>
+					<menu className={css.burgerMenu}>
+						<ul className={css.burgerLinks}>
+							<li>
+								<Link href="/new-service">
+									Добавить свои услуги
+								</Link>
+							</li>
+							<li>
+								<Link href="/new-event">
+									Мероприятия
+								</Link>
+							</li>
+							<li>
+								<Link href="/search">
+									Услуги и площадки
+								</Link>
+							</li>
+							<li>
+								<AuthProvider>
+									<Profile />
+								</AuthProvider>
+							</li>
+						</ul>
+					</menu>
+				</div>
 
 			</nav>
 		</header>
