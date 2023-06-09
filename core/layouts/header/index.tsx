@@ -22,17 +22,17 @@ const Header: FC = () => {
 				<ul className={css.links}>
 					<li>
 						<Link href="/new-service">
-							Добавить свои услуги
+							Добавить услуги
 						</Link>
 					</li>
 					<li>
 						<Link href="/new-event">
-							Мероприятия
+							Создать мероприятие
 						</Link>
 					</li>
 					<li>
 						<Link href="/search">
-							Услуги и площадки
+							Поиск услуг
 						</Link>
 					</li>
 					<li>
@@ -50,7 +50,7 @@ const Header: FC = () => {
 						<ul className={css.burgerLinks}>
 							<li>
 								<Link href="/new-service">
-									Добавить свои услуги
+									Добавить услуги
 								</Link>
 							</li>
 							<li>

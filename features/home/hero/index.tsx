@@ -29,7 +29,7 @@ const Hero: FC = () => {
 							href="/new-service"
 							className={css.link}
 						>
-							Добавить свои услуги
+							Добавить услуги
 						</Link>
 					</div>
 				</div>

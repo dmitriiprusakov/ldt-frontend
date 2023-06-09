@@ -3,7 +3,7 @@
 "use client";
 
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, InputNumber, message, Upload } from "antd";
+import { Button, Form, Input, InputNumber, message, Select, Switch, Upload } from "antd";
 
 import { eventsFetcher, imagesFetcher } from "core/fetchers";
 import AntdProvider from "core/theme";
@@ -114,6 +114,18 @@ export default function NewService() {
 						onFinish={onFinish}
 					>
 						<Form.Item
+							label="Выберите тип услуги"
+						>
+							<Select
+								options={[
+									{ value: "PLACE", label: "Аренда площадки" },
+									{ value: "FLOWERS", label: "Цветы и оформление", disabled: true },
+									{ value: "CATERING", label: "Фуршет", disabled: true },
+									{ value: "SECURITY", label: "Охрана", disabled: true },
+								]}
+							/>
+						</Form.Item>
+						<Form.Item
 							label="Превью фото"
 							name="photo"
 							valuePropName="file"
@@ -207,6 +219,12 @@ export default function NewService() {
 								max={100000}
 								className={css.inputNumber}
 							/>
+						</Form.Item>
+						<Form.Item
+							label="Показывать цену в поиске?"
+							valuePropName="checked"
+						>
+							<Switch checkedChildren="Да" unCheckedChildren="Нет" />
 						</Form.Item>
 
 						<Form.Item>

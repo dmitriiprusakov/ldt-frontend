@@ -56,7 +56,7 @@ const Searcher: FC = () => {
 
 						<div className={css.main}>
 							<Form layout="vertical">
-								<Form.Item label="Выберите тип мероприятия">
+								<Form.Item label="Выберите тип услуги">
 									<Select
 										style={{ width: "100%", marginBottom: "1rem" }}
 										onChange={changeServiceType}

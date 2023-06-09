@@ -47,7 +47,7 @@ export default function RootPage() {
 					subtitle="Выбор всех услуг по системе «единого окна»"
 					hint="Маркетплейс услуг, необходимых для проведения идеального мероприятия"
 					linkHref="/new-service"
-					linkText="Добавить свои услуги"
+					linkText="Добавить услуги"
 					spotOnLeft={false}
 					links={[
 						"Площадки",

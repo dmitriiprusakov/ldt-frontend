@@ -6,7 +6,7 @@ const Hero: FC = () => {
 	return (
 		<section>
 			<div className={css.content}>
-				<h1>Настройка услуги</h1>
+				<h1>Добавление услуги</h1>
 
 			</div>
 		</section>
