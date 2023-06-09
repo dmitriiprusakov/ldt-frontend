@@ -6,8 +6,8 @@
     --max-width: 1600px;
     --header-height: 7rem;
 
-    --sides-padding: 6rem;
-    --home-sides-padding: 9rem;
+    --sides-padding: 1rem;
+    --home-sides-padding: 1rem;
 
     --color-primary: #FFFFFF;
 
@@ -42,6 +42,19 @@ body {
 a {
     color: inherit;
     text-decoration: none;
+}
+
+/*Tablet and desktop styles*/
+@media (min-width: 481px) {
+    :root {
+        --border-radius: 7px;
+
+        --max-width: 1600px;
+        --header-height: 7rem;
+
+        --sides-padding: 6rem;
+        --home-sides-padding: 9rem;
+    }
 }
 
 @media (prefers-color-scheme: dark) {

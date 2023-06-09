@@ -60,7 +60,7 @@ export default function RootPage() {
 						"Уборка",
 					]}
 				/>
-				<RecentEvents />
+				{/* <RecentEvents /> */}
 				<Cta />
 			</Main>
 			<Footer />

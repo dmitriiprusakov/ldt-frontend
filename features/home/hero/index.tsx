@@ -34,6 +34,7 @@ const Hero: FC = () => {
 					</div>
 				</div>
 				<Image
+					className={css.image}
 					width={450}
 					height={380}
 					src={"/HeroImage.png"}

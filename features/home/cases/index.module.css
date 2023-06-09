@@ -6,9 +6,10 @@
     width: 100%;
     margin: 0 auto;
     max-width: var(--max-width);
-    padding: 5rem var(--home-sides-padding);
+    padding: 3rem var(--home-sides-padding);
 
     display: flex;
+    flex-direction: column;
 }
 
 .left,
@@ -19,20 +20,15 @@
 }
 
 .left {
-    margin-right: 2rem;
-    width: 60%;
+    margin: 0 0 2rem;
 }
 
 .left h2 {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 600;
     line-height: 75px;
     margin-bottom: 2rem;
-}
-
-.right {
-    padding-top: 1.5rem;
-    width: 40%;
+    width: 100%;
 }
 
 .right h3 {
@@ -85,4 +81,28 @@
 .spotRight {
     top: 0;
     right: 0;
+}
+
+
+/*Tablet and desktop styles*/
+@media (min-width: 481px) {
+    .content {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .left {
+        margin: 0 1rem 0 0;
+        width: 60%;
+    }
+
+    .left h2 {
+        font-size: 3rem;
+    }
+
+    .right {
+        padding-top: 1.5rem;
+        width: 40%;
+    }
 }

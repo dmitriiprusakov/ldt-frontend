@@ -11,7 +11,7 @@ const Cta: FC = () => {
 			<div className={css.content}>
 				<div className={css.text}>
 					<h1>
-						Организуй сейчас —<br />
+						Организуй сейчас —
 						проведи завтра
 					</h1>
 					<div className={css.links}>
