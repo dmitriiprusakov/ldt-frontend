@@ -1,6 +1,6 @@
 import { Footer, Header, Main } from "core/layouts";
 import { JsonRpcBody, Statistic } from "core/types";
-import { Cases, Hero, RecentEvents, Stats } from "features/home";
+import { Cases, Cta, Hero, RecentEvents, Stats } from "features/home";
 
 import css from "./index.module.css";
 
@@ -60,7 +60,8 @@ export default function RootPage() {
 						"Уборка",
 					]}
 				/>
-				{/* <RecentEvents /> */}
+				<RecentEvents />
+				<Cta />
 			</Main>
 			<Footer />
 		</>
